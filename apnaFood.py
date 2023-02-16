@@ -3,11 +3,11 @@ import smtplib
 from random import randint
 
 app = Flask(__name__)
-@app.route('/')
+@app.route('/hello')
 def hello_world():
         return 'Hello World'
 
-@app.route('/send_email_otp')
+@app.route('/')
 def send_email_otp():
         sender = "emailotp@mithranjali.org.in"
         receiver = "sripriyamaturi8@gmail.com"
