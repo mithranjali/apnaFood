@@ -28,7 +28,7 @@ def send_email_otp():
         except Exception as e:
             print("Failed to send email. Error:", e)
         server.quit()
-        
+       return otp 
 
 if __name__ == '__main__':
         app.run()
