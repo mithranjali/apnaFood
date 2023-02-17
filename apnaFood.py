@@ -7,15 +7,14 @@ app = Flask(__name__)
 def hello_world():
         return 'Hello World'
 
-@app.route('/')
+
+@app.route('/email_otp')
 def send_email_otp():
         sender = "emailotp@mithranjali.org.in"
         receiver = "sripriyamaturi8@gmail.com"
         password = "Orayiram@2020"
         otp=randint(1000,9999)
         message = """
-        Subject: OTP for email verification.
-
         Please verify your email. Your OTP is - 
         """ + str(otp)
 
@@ -28,7 +27,7 @@ def send_email_otp():
         except Exception as e:
             print("Failed to send email. Error:", e)
         server.quit()
-       return otp 
+        return {'otp' : otp} 
 
 if __name__ == '__main__':
         app.run()
