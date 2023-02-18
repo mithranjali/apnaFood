@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, Request
 import smtplib
 from random import randint
 
@@ -8,9 +8,10 @@ def hello_world():
         return 'Hello World'
 
 @app.route('/')
-def send_email_otp():
+async def send_email_otp(request : Request):
+        k = await request.json()
         sender = "emailotp@mithranjali.org.in"
-        receiver = "sripriyamaturi8@gmail.com"
+        receiver =  k['email']
         password = "Orayiram@2020"
         otp=randint(1000,9999)
         message = """
@@ -28,7 +29,7 @@ def send_email_otp():
         except Exception as e:
             print("Failed to send email. Error:", e)
         server.quit()
-       return {'otp' : otp} 
+        return {'otp' : otp} 
 
 if __name__ == '__main__':
         app.run()
