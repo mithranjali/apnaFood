@@ -7,7 +7,7 @@ app = Flask(__name__)
 def hello_world():
         return 'Hello World'
 
-@app.route('/')
+@app.route('/email_otp')
 async def send_email_otp(request : Request):
         k = await request.json()
         sender = "emailotp@mithranjali.org.in"
