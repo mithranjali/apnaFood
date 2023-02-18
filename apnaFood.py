@@ -1,17 +1,18 @@
-from flask import Flask, Request
+import uvicorn
+from fastapi import FastAPI, File, UploadFile, Form
+from fastapi import Query,Body
 import smtplib
 from random import randint
 
-app = Flask(__name__)
-@app.route('/hello')
+app = FastAPI(title="Apna Food", version="1.0")
+@app.get('/hello')
 def hello_world():
         return 'Hello World'
 
-@app.route('/email_otp')
-async def send_email_otp(request : Request):
-        k = await request.json()
+@app.get('/email_otp')
+async def send_email_otp(email: str = Query(..., max_length=50, min_length=3)):
         sender = "emailotp@mithranjali.org.in"
-        receiver =  k['email']
+        receiver =  email
         password = "Orayiram@2020"
         otp=randint(1000,9999)
         message = """
@@ -32,4 +33,4 @@ async def send_email_otp(request : Request):
         return {'otp' : otp} 
 
 if __name__ == '__main__':
-        app.run()
+        uvicorn.run(app)
