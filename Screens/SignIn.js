@@ -24,9 +24,14 @@ import {
 const SignIn = ({ navigation }) => {
   const [text, onChangeText] = React.useState('');
   return (
-    <SafeAreaView style={styles.Container}>
-      <KeyboardAvoidingView>
 
+      // <KeyboardAvoidingView
+      // behavior='padding'
+      // >
+      <KeyboardAvoidingView 
+      // behavior='padding'
+      style={styles.Container}>
+              <View style={styles.Container}>
         <Image style={styles.logo} source={require('../logo.png')} />
 
         <Text style={styles.text}>Sign In</Text>
@@ -34,12 +39,14 @@ const SignIn = ({ navigation }) => {
           style={styles.input}
           onChangeText={onChangeText}
           value={text}
+          placeholderTextColor="#8399cf"
           placeholder="User Name"
         />
 
         <TextInput
           style={styles.input}
           placeholder="Password"
+          placeholderTextColor="#8399cf"
           secureTextEntry={true}
         />
         <View style={styles.forgot_pswd_button}>
@@ -49,10 +56,9 @@ const SignIn = ({ navigation }) => {
         </View>
 
         <TouchableOpacity style={styles.button} onPress={() => { }}>
-          <Text style={{ fontSize: 15, color: 'black' }} >Sign In</Text>
+          <Text style={{ fontSize: 15, color: '#f5f5f5' }} >Sign In</Text>
         </TouchableOpacity>
 
-      </KeyboardAvoidingView>
 
       <View>
         <Text style={styles.text2}>──────── Or, login with ────────</Text>
@@ -83,18 +89,28 @@ const SignIn = ({ navigation }) => {
 
         }
         }>
-          <Text>Create Now</Text>
+          <Text style={{ fontWeight: '700' }}> Create Now</Text>
         </TouchableOpacity>
       </View>
-    </SafeAreaView>
-  );
+      </View> 
+      
+      </KeyboardAvoidingView>
+
+
+
+      // </KeyboardAvoidingView>
+    );
 };
 
 const styles = StyleSheet.create({
   Container: {
-    paddingTop: 50,
-    height: '100%',
-    backgroundColor: 'white',
+    flex:1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    // justifyContent: 'center',
+    // paddingTop: 50,
+    height: 100,
+    backgroundColor: '#f5f5f5',
   },
 
   logo: {
@@ -110,27 +126,34 @@ const styles = StyleSheet.create({
   },
 
   input: {
-    height: 40,
-    margin: 12,
+    height: 50,
+    margin: 20,
+    width:300,
     marginHorizontal: 40,
-    borderBottomWidth: 1.3,
+    borderWidth: 1.2,
     padding: 10,
-    marginBottom: 15,
+    marginBottom: 6,
+    borderRadius:10,
+    fontSize:14,
+    borderColor:'#8399cf',
   },
   button: {
     alignItems: 'center',
-    backgroundColor: '#ddd',
+    backgroundColor: '#f58551',
     padding: 15,
     borderRadius: 10,
-    width: 340,
+    width: 300,
     alignSelf: 'center',
     marginVertical: 20,
   },
 
   text: {
     fontSize: 23,
-    alignSelf: 'center',
-    marginTop: 23,
+    // alignSelf: 'left',
+    // marginHorizontal:10,
+    marginHorizontal: '10%',
+    // marginVertical:'1%',
+    marginTop: 16,
     color: 'black',
   },
 
@@ -138,7 +161,7 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     marginTop: 23,
     color: 'black',
-    marginBottom: 10,
+    marginBottom: 40,
     fontSize: 15,
   },
 
@@ -153,17 +176,17 @@ const styles = StyleSheet.create({
   icon_container: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    marginHorizontal: 40,
-    marginVertical: 10,
+    marginHorizontal: '10%',
+    marginBottom: '6%',
   },
 
   icons:
   {
     borderRadius: 10,
-    width: 50,
-    height: 60,
-    paddingHorizontal: 30,
-    paddingVertical: 10,
+    width: 40,
+    height: 40,
+    marginHorizontal: 10,
+    // paddingVertical: 10,
     // borderColor: 'black',
     // borderWidth:0.7,
   },
@@ -172,16 +195,20 @@ const styles = StyleSheet.create({
   {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    marginHorizontal: 88,
-    marginBottom: 30,
+    marginHorizontal: 80,
+    // fontSize:'20px',
+    // marginBottom: 30,
   },
 
   forgot_pswd_button:
   {
     // flexDirection: 'row',
     // justifyContent: 'space-between',
-    marginLeft: 260,
-    marginVertical: 30,
+    // marginHorizontal: 260,
+    marginHorizontal:'10%',
+    alignSelf:'flex-end',
+    // marginRight:0,
+    marginVertical: '4%',
   },
 });
 

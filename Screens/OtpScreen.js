@@ -6,6 +6,7 @@ import { Text, View, TextInput, TouchableOpacity, KeyboardAvoidingView, u } from
 import { StyleSheet } from 'react-native';
 import { ProgressSteps,ProgressStep } from 'react-native-progress-steps';
 
+
 const OtpScreen = ({ navigation }) => {
 
   //States for appearance of otp slots and butto activation
@@ -22,7 +23,25 @@ const OtpScreen = ({ navigation }) => {
   const [user_valid_email, set_user_valid_email] = useState(false);
   const [user_valid_phone, set_user_valid_phone] = useState(false);
 
+  const backendOtp = ()=>
+  {
 
+
+    const settings = {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        email: user_email,
+      }),
+    };
+
+    fetch('http://apnafood.org.in/email_otp',settings)
+    .then(response=>response.json())
+    .then(console.log);
+  };
 
   //debug
   console.log(user_email_otp);
@@ -91,7 +110,10 @@ const OtpScreen = ({ navigation }) => {
         <TouchableOpacity
 
           disabled={!user_valid_email} // The button is disabled if the email address is invalid
-          onPress={() => { set_otp_input_email_show(true); }}
+          onPress={() => { 
+          set_otp_input_email_show(true); 
+          backendOtp();
+          }}
           style={styles.primary_touchable}>
           <View style={styles.primary_touchable_view}>
             <Text
@@ -243,12 +265,13 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     alignItems: 'center',
     justifyContent: 'center',
+    borderRadius:10,
     // paddingHorizontal: 8,
 
     //The Only Line Config
-    borderTopWidth: 0,
-    borderRightWidth: 0,
-    borderLeftWidth: 0,
+    // borderTopWidth: 0,
+    // borderRightWidth: 0,
+    // borderLeftWidth: 0,
   },
   primary_text_input: {
     width: 185,
@@ -258,11 +281,12 @@ const styles = StyleSheet.create({
     marginVertical: 16,
     // borderColor: 'black',
     borderWidth: 1,
+    borderRadius:10,
 
     //The only Line Config
-    borderTopWidth: 0,
-    borderLeftWidth: 0,
-    borderRightWidth: 0,
+    // borderTopWidth: 0,
+    // borderLeftWidth: 0,
+    // borderRightWidth: 0,
   },
   secondary_text_Input: {
     height: 40,
@@ -271,11 +295,12 @@ const styles = StyleSheet.create({
     marginVertical: 12,
     // borderColor: 'black',
     borderWidth: 1,
+    borderRadius:10,
 
     //The Only Line Config
-    borderLeftWidth: 0,
-    borderRightWidth: 0,
-    borderTopWidth: 0,
+    // borderLeftWidth: 0,
+    // borderRightWidth: 0,
+    // borderTopWidth: 0,
   },
   extra_text_view: {
     flexDirection: 'row',
