@@ -72,14 +72,11 @@ const OtpScreen = ({ navigation }) => {
 
   return (
     <View style={styles.whole_view}>{/* Whole View Block */}
-
-    <View>
     <Text
     style={styles.heading}
     >
      User Details
     </Text>
-    </View>
     {/* <RnOtpTimer
           style={styles.primary_otp}
           minutes={5}
@@ -88,7 +85,9 @@ const OtpScreen = ({ navigation }) => {
       {/* Text Input Block */}
       <TextInput
         onChangeText={(text) => set_user_name(text)}
-        style={styles.secondary_text_Input} placeholder="Name" />
+        style={styles.secondary_text_Input}
+        placeholderTextColor="#8399cf"
+        placeholder="Name" />
       {/* This View is a container for Email Address ans its otp */}
       <View style={styles.primary_inputs_view}>
         {/* This input field takes email address */}
@@ -106,6 +105,7 @@ const OtpScreen = ({ navigation }) => {
             }
           }}
           style={styles.primary_text_input}
+          placeholderTextColor="#8399cf"
           placeholder="Email Address" />
         <TouchableOpacity
 
@@ -134,7 +134,9 @@ const OtpScreen = ({ navigation }) => {
           <View style={styles.primary_inputs_view}>
             <TextInput
               onChangeText={(text) => { set_user_email_otp(text); }}
-              style={styles.primary_text_input} placeholder="OTP" />
+              style={styles.primary_text_input} 
+              placeholderTextColor="#8399cf"
+              placeholder="OTP" />
             <TouchableOpacity
               disabled={!verify_email_active}
               // activeOpacity={verify_email_active? 1 : 0.7} // TODO Properly - Trying to distinguish between active verify button and inactive verify button
@@ -175,7 +177,9 @@ const OtpScreen = ({ navigation }) => {
               set_user_valid_phone(false);
             }
           }}
-          style={styles.primary_text_input} placeholder="Phone Number" />
+          style={styles.primary_text_input} 
+          placeholderTextColor="#8399cf"
+          placeholder="Phone Number" />
         <TouchableOpacity
           disabled={!user_valid_phone}
           onPress={() => { set_otp_input_phone_show(true); }}
@@ -198,7 +202,10 @@ const OtpScreen = ({ navigation }) => {
           <View style={styles.primary_inputs_view}>
             <TextInput
               onChangeText={(text) => { set_user_phone_otp(text); }}
-              style={styles.primary_text_input} placeholder="OTP" />
+              style={styles.primary_text_input}
+              placeholder="OTP"
+              placeholderTextColor="#8399cf"
+               />
             <TouchableOpacity
               disabled={!verify_phone_active}
               style={styles.primary_touchable}>
@@ -232,7 +239,9 @@ const OtpScreen = ({ navigation }) => {
       }}
       >
         <View style={styles.submit_touchable}>
-          <Text> Next </Text>
+          <Text
+          style={styles.primary_text}
+          > Next </Text>
         </View>
       </TouchableOpacity>
 
@@ -246,6 +255,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
+    backgroundColor:'#f5f5f5'
   },
 
   touchable_otp: {
@@ -255,17 +265,18 @@ const styles = StyleSheet.create({
   primary_inputs_view: {
     // flex: 1,
     flexDirection: 'row',
-    width: 260,
+    width: 300,
     justifyContent: 'center',
     alignItems: 'center',
   },
   primary_touchable_view: {
     width: 75,
-    height: 40,
+    height: 50,
     borderWidth: 1,
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius:10,
+    borderColor:'#8399cf',
     // paddingHorizontal: 8,
 
     //The Only Line Config
@@ -274,14 +285,17 @@ const styles = StyleSheet.create({
     // borderLeftWidth: 0,
   },
   primary_text_input: {
-    width: 185,
-    height: 40,
+    width: 225,
+    height: 50,
     // width: 260,
     padding: 10,
     marginVertical: 16,
     // borderColor: 'black',
     borderWidth: 1,
     borderRadius:10,
+    borderColor:'#8399cf',
+  
+
 
     //The only Line Config
     // borderTopWidth: 0,
@@ -289,11 +303,11 @@ const styles = StyleSheet.create({
     // borderRightWidth: 0,
   },
   secondary_text_Input: {
-    height: 40,
-    width: 260,
+    height: 50,
+    width: 300,
     padding: 10,
     marginVertical: 12,
-    // borderColor: 'black',
+    borderColor:'#8399cf',
     borderWidth: 1,
     borderRadius:10,
 
@@ -313,15 +327,20 @@ const styles = StyleSheet.create({
   primary_text: {
     textAlign: 'center',
     marginVertical: 2,
+    color:'#f5f5f5'
   },
   submit_touchable: {
 
     borderWidth: 1,
     // padding:8,
     margin: 30,
+    // height:50,
+    width:300,
     paddingHorizontal: 12,
-    paddingVertical: 7,
-    borderRadius: 5,
+    paddingVertical: 12,
+    borderRadius: 10,
+    borderColor:'#f58551',
+    backgroundColor:'#f58551'
     // alignSelf:'flex-end'
     // justifySelf: 'center',
   },
@@ -334,15 +353,19 @@ const styles = StyleSheet.create({
     padding:0,
   },
   button_sendotp:{
-    color:'black',
+    // color:'black',
+    color:'#8399cf'
   },
   heading:{
     // color:'black',
-    color:'#34568B',
-    textAlign:'left',
+    color:'#8399cf',
+    // textAlign:'left',
+    alignSelf:'flex-start',
     // marginRight:140,
-    marginBottom:60,
-    fontSize:20,
+    // marginBottom:'',
+    marginLeft:'14%',
+    marginVertical:10,
+    fontSize:24,
   },
   step:{
     // backgroundColor:"blue",
