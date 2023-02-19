@@ -2,7 +2,7 @@
 /* eslint-disable space-infix-ops */
 import RnOtpTimer from 'rn-otp-timer';
 import React, { useState } from 'react';
-import { Text, View, TextInput, TouchableOpacity, KeyboardAvoidingView, u } from 'react-native';
+import { Text, View, TextInput, TouchableOpacity, KeyboardAvoidingView, u, Alert } from 'react-native';
 import { StyleSheet } from 'react-native';
 import { ProgressSteps,ProgressStep } from 'react-native-progress-steps';
 
@@ -23,6 +23,9 @@ const OtpScreen = ({ navigation }) => {
   const [user_valid_email, set_user_valid_email] = useState(false);
   const [user_valid_phone, set_user_valid_phone] = useState(false);
 
+  //OTP stuff
+  const [received_otp, set_received_otp] = useState(0);
+  const [otp_verified, set_otp_verified] = useState(false);
   const backendOtp = ()=>
   {
 
@@ -38,9 +41,26 @@ const OtpScreen = ({ navigation }) => {
       }),
     };
 
-    fetch('http://apnafood.org.in/email_otp/mnikhiln17@gmail.com')
+    fetch('http://apnafood.org.in/email_otp?email='+user_email)
     .then(response=>response.json())
-    .then(console.log);
+    .then(data => set_received_otp(data.otp));
+  };
+  const verify_email_otp = () =>{
+
+
+    console.log("unna");
+    console.log(typeof (user_email_otp));
+    console.log(typeof (received_otp));
+    if(Number(user_email_otp)===received_otp)
+    {
+      set_otp_verified(true);
+      Alert.alert('OTP Verified Succesfully');
+    }
+    else
+    {
+      set_otp_verified(false);
+      Alert.alert('Please check the OTP')
+    }
   };
 
   //debug
@@ -133,11 +153,13 @@ const OtpScreen = ({ navigation }) => {
         <View>
           <View style={styles.primary_inputs_view}>
             <TextInput
+            maxLength={4}
               onChangeText={(text) => { set_user_email_otp(text); }}
               style={styles.primary_text_input} 
               placeholderTextColor="#8399cf"
               placeholder="OTP" />
             <TouchableOpacity
+            onPress={()=>{verify_email_otp()}}
               disabled={!verify_email_active}
               // activeOpacity={verify_email_active? 1 : 0.7} // TODO Properly - Trying to distinguish between active verify button and inactive verify button
               style={styles.primary_touchable}>
@@ -153,7 +175,9 @@ const OtpScreen = ({ navigation }) => {
             <Text
               style={styles.primary_text}
             >Didn't receive the code ? </Text>
-            <TouchableOpacity>
+            <TouchableOpacity
+            onPress={()=>{backendOtp();}}
+            >
               <View>
                 <Text style={styles.resend_button_style}>Resend ?</Text>
               </View>
@@ -235,7 +259,14 @@ const OtpScreen = ({ navigation }) => {
       <TouchableOpacity
       onPress={()=>
       {
-        navigation.navigate('Screenthree');
+        if (otp_verified)
+        {
+          navigation.navigate('Screenthree');
+        }
+        else
+        {
+          Alert.alert('OTP Not Verified');
+        }
       }}
       >
         <View style={styles.submit_touchable}>
@@ -327,7 +358,7 @@ const styles = StyleSheet.create({
   primary_text: {
     textAlign: 'center',
     marginVertical: 2,
-    color:'#f5f5f5'
+    // color:'#'
   },
   submit_touchable: {
 
