@@ -23,10 +23,17 @@ const Screen3 = ({navigation}) => {
   const [value, setValue] = useState('');
   const [isFocus, setIsFocus] = useState(false);
 
-  const [cin, onChangecin] = React.useState('');
-  const [pan, onChangepan] = React.useState('');
-  const [gst, onChangegst] = React.useState('');
-  const [udayam, onChangeudayam] = React.useState('');
+  // variable declarations
+  const [cin, onChangecin] = React.useState(''); // CIN number and the function to modify the CIN number declaration
+  const [pan, onChangepan] = React.useState('');// PAN number and the function to modify the PAN number declaration
+  const [gst, onChangegst] = React.useState('');// GST number and the function to modify the GST number declaration
+  const [udayam, onChangeudayam] = React.useState('');// UDAYAM number and the function to modify the UDAYAM number declaration
+
+  // declaration of varaible flags to validate the entered details of organisation
+  const [check_Valid_CIN,set_checkValid_CIN] = useState(false); // validate the entered details of CIN
+  const [check_Valid_PAN,set_checkValid_PAN] = useState(false); // validate the entered details of PAN
+  const [check_Valid_GST,set_checkValid_GST] = useState(false); // validate the entered details of GST
+  const [check_Valid_UDAYAM,set_checkValid_UDAYAM] = useState(false); // validate the entered details of UDAYAM
 
   const data = [
     {key:'1', value:'SHG', disabled:true},
@@ -40,15 +47,52 @@ const Screen3 = ({navigation}) => {
     {key:'9', value:'Section 8 Company,'},
     {key:'10', value:'Public Limited Company'},
     {key:'11', value:'House Wife'},
-]
-
+]; // different organisations present in the dropdown list
+ const handle_Check_CIN = (text: string)=>{ // handling function which validates the CIN number
+  const regex = /^([LUu]{1})([0-9]{5})([A-Za-z]{2})([0-9]{4})([A-Za-z]{3})([0-9]{6})$/; //  regex expression which is compared with entered CIN
+  onChangecin(text);
+  if (regex.test(text)){
+    set_checkValid_CIN(false); // CIN flag is updated to false
+  }
+  else {
+    set_checkValid_CIN(true); // CIN flag is updated to true
+  }
+ };
+ const handle_Check_PAN = (text: string)=>{ // handling function which validates the PAN number
+  const regex = /[A-Z]{5}[0-9]{4}[A-Z]{1}/; //  regex expression which is compared with entered PAN
+  onChangepan(text);
+  if (regex.test(text)){
+    set_checkValid_PAN(false);// PAN flag is updated to false
+  }
+  else {
+    set_checkValid_PAN(true); // PAN flag is updated to true
+  }
+ };
+ const handle_Check_GST = (text: string)=>{ // handling function which validates the GST number
+  const regex = /^[0-9]{2}[A-Z]{5}[0-9]{4}[A-Z]{1}[1-9A-Z]{1}Z[0-9A-Z]{1}$/;  //  regex expression which is compared with entered GST
+  onChangegst(text);
+  if (regex.test(text)){
+    set_checkValid_GST(false); // GST flag is updated to false
+  }
+  else {
+    set_checkValid_GST(true); // GST flag is updated to true
+  }
+ };
+ const handle_Check_UDAYAM = (text: string)=>{ // handling function which validates the UDAYAM number
+  const regex = /[A-Z]{5}[0-9]{4}[A-Z]{1}/; // regex expression which is compared with entered UDAYAM number
+  onChangeudayam(text);
+  if (regex.test(text)){
+    set_checkValid_UDAYAM(false); // UDAYAM flag is updated to false
+  }
+  else {
+    set_checkValid_UDAYAM(true); // UDAYAM flag is updated to true
+  }
+ };
   return (
     <SafeAreaView style={styles.safe_area_style}>
-      <KeyboardAvoidingView
-      // style={styles.safe_area_style}
-      behavior="padding"
-      >
+      <KeyboardAvoidingView>
       <Text style={styles.heading}>Organisation Details</Text>
+
       <View style={styles.container}>
         <Dropdown
           style={styles.dropdown}
@@ -72,56 +116,84 @@ const Screen3 = ({navigation}) => {
         />
       </View>
 
-          <TextInput style={styles.input} onChangeText={onChangecin}
-          value={cin}
+          <TextInput style={styles.input} value={cin} onChangeText={text =>handle_Check_CIN(text)}
+          placeholderTextColor="#8399cf"
           placeholder=" CIN " />
-          <TextInput style={styles.input} onChangeText={onChangepan}
-          value={pan}
+          {
+            check_Valid_CIN ? (
+              <Text style={styles.textFailed}> wrong CIN format</Text>) : (<Text style={styles.textFailed} />)
+
+          }
+          <TextInput style={styles.input}
+          value={pan}  onChangeText={text =>handle_Check_PAN(text)}
+          placeholderTextColor="#8399cf"
           placeholder=" PAN " />
-          <TextInput style={styles.input} onChangeText={onChangegst}
-          value={gst}
+          {
+            check_Valid_PAN ? (
+              <Text style={styles.textFailed}> wrong PAN format</Text>) : (<Text style={styles.textFailed} />)
+
+          }
+          <TextInput style={styles.input}
+          value={gst} onChangeText={text =>handle_Check_GST(text)}
+          placeholderTextColor="#8399cf"
           placeholder=" GST " />
-          <TextInput style={styles.input} onChangeText={onChangeudayam}
-          value={udayam}
+          {
+            check_Valid_GST ? (
+              <Text style={styles.textFailed}> wrong GST format</Text>) : (<Text style={styles.textFailed} />)
+
+          }
+          <TextInput style={styles.input}
+          value={udayam} onChangeText={text =>handle_Check_UDAYAM(text)}
+          placeholderTextColor="#8399cf"
           placeholder=" UDAYAM " />
-          <TouchableOpacity 
+          {
+            check_Valid_UDAYAM ? (
+              <Text style={styles.textFailed}> wrong UDAYAM format</Text>) : (<Text style={styles.textFailed} />)
+          }
+          <TouchableOpacity
           onPress={
             ()=>{
               navigation.navigate('Screen4');
             }
-          }
-          style={styles.button}>
-          <Text style={{ fontSize: 22,fontWeight:'bold' }}>Next</Text>
+          } style={styles.button}>
+          <Text style={{ fontSize: 22,fontWeight:'bold', color:'#f5f5f5' }}>Next</Text>
         </TouchableOpacity>
       </KeyboardAvoidingView>
-    </SafeAreaView> 
+    </SafeAreaView>
   );
-}
+};
 
 const styles = StyleSheet.create({
   safe_area_style: {
-    paddingTop: 50,
+    // paddingTop: 50,
+    flex:1,
+    justifyContent: 'center',
+    alignItems: 'center',
     height: '100%',
     backgroundColor: 'white',
   },
   heading:{
-    fontSize: 30,
-    alignSelf: 'center',
-    // marginTop: ,
-    color: 'black',
+    fontSize: 24,
+    marginLeft:'12%',
+    marginBottom:0,
+    color:'#8399cf',
   },
   input:{
-    height: 40,
-    margin: 15,
+    height: 50,
+    width:300,
+    // margin: 12,
     marginHorizontal: 40,
-    borderBottomWidth: 1.3,
+    borderWidth: 1.2,
     padding: 10,
-    marginBottom: 15,
-    fontSize:20,
+    // marginBottom: 15,
+    borderRadius:10,
+    fontSize:14,
+    borderColor:'#8399cf',
   },
   dropdown: {
-    margin: 16,
+    alignSelf: 'center',
     height: 50,
+    width:300,
     backgroundColor: 'white',
     borderRadius: 12,
     padding: 15,
@@ -136,29 +208,37 @@ const styles = StyleSheet.create({
   },
   placeholderStyle: {
     fontSize: 20,
-    color:'black',
+    color:'#8399cf',
   },
   selectedTextStyle: {
     fontSize: 20,
+    color:'#8399cf',
   },
   inputSearchStyle: {
     height: 60,
     fontSize: 15,
+    color :'#8399cf',
   },
   container: {
-    marginTop:50,
+    // marginTop:50,
     padding: 16,
     alignContent:'center',
   },
+  textFailed:{
+    fontSize:14,
+    color:'red',
+    textAlign:'center',
+  },
   button: {
     alignItems: 'center',
-    backgroundColor: 'red',
+    backgroundColor: '#f58551',
     padding: 13,
     borderRadius: 10,
-    width: 320,
+    width: 300,
     alignSelf: 'center',
-    marginVertical: 50,
+    // marginVertical: 10,
   },
 });
+
 
 export default Screen3;

@@ -32,7 +32,7 @@ const SignIn = ({ navigation }) => {
       // behavior='padding'
       style={styles.Container}>
               <View style={styles.Container}>
-        <Image style={styles.logo} source={require('../logo.png')} />
+        <Image style={styles.logo} source={require('../MithranjaliLogo.png')} />
 
         <Text style={styles.text}>Sign In</Text>
         <TextInput
@@ -66,19 +66,19 @@ const SignIn = ({ navigation }) => {
 
       <View style={styles.icon_container}>
         <TouchableOpacity>
-          <Image style={styles.icons} source={require('../GoogleLogo.svg')} />
+          <Image style={styles.icons} source={require('../GoogleLogo.png')} />
         </TouchableOpacity>
 
         <TouchableOpacity>
-          <Image style={styles.icons} source={require('../FacebookLogo.svg')} />
+          <Image style={styles.icons} source={require('../FacebookLogo.png')} />
         </TouchableOpacity>
 
         <TouchableOpacity>
-          <Image style={styles.icons} source={require('../twitter.png')} />
+          <Image style={styles.icons} source={require('../TwitterLogo.png')} />
         </TouchableOpacity>
 
         <TouchableOpacity>
-          <Image style={styles.icons} source={require('../ios.png')} />
+          <Image style={styles.icons} source={require('../AppleLogo.png')} />
         </TouchableOpacity>
       </View>
       <View style={styles.footer}>
@@ -92,8 +92,7 @@ const SignIn = ({ navigation }) => {
           <Text style={{ fontWeight: '700' }}> Create Now</Text>
         </TouchableOpacity>
       </View>
-      </View> 
-      
+      </View>
       </KeyboardAvoidingView>
 
 
@@ -149,12 +148,12 @@ const styles = StyleSheet.create({
 
   text: {
     fontSize: 23,
-    // alignSelf: 'left',
+    alignSelf: 'flex-start',
     // marginHorizontal:10,
-    marginHorizontal: '10%',
-    // marginVertical:'1%',
-    marginTop: 16,
-    color: 'black',
+    marginHorizontal: '12%',
+    marginTop: 20,
+    // color: 'black',
+    color :'#8399cf',
   },
 
   text2: {

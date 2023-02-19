@@ -28,7 +28,7 @@ const OtpScreen = ({ navigation }) => {
 
 
     const settings = {
-      method: 'POST',
+      method: 'get',
       headers: {
         Accept: 'application/json',
         'Content-Type': 'application/json',
@@ -38,7 +38,7 @@ const OtpScreen = ({ navigation }) => {
       }),
     };
 
-    fetch('http://apnafood.org.in/email_otp',settings)
+    fetch('http://apnafood.org.in/email_otp/mnikhiln17@gmail.com')
     .then(response=>response.json())
     .then(console.log);
   };
