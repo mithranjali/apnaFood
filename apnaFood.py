@@ -40,6 +40,4 @@ async def send_email_otp(email: str = Query(..., max_length=50, min_length=3)):
         return {'otp' : otp} 
 
 if __name__ == '__main__':
-        resp = send_sms_otp('917032221136')
-        print(resp)
         uvicorn.run(app)
