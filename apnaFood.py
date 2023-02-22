@@ -12,8 +12,7 @@ def hello_world():
         return 'Hello World'
 
 @app.get('/sms_otp')
-async def send_sms_otp():
-        return {"hi":10}
+async def send_sms_otp(phnnum: str = Query(..., max_length=50, min_length=3)):
         otp=randint(1000,9999)
         params = {'apikey': 'NTA2NDZhNjgzNDVhNGYzNTZiMzE2YTczNDQ2YzYxNzk=', 'numbers': phnnum, 'message' : 'Welcome to apnaFood by MITHRANJALI FOUNDATION.\nYour OTP for registration is ' + str(otp) + '.', 'sender': 'MTRJLI'}
         f = urllib.request.urlopen('https://api.textlocal.in/send/?'+ urllib.parse.urlencode(params))
