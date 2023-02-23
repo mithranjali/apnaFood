@@ -30,7 +30,7 @@ async def insert_registration(request : Request):
         gst = k['gst']
         udhyam = k['udhyam']
         bank_acc_num = k['accountnumber']
-        bank_acc_name = k['']
+        bank_acc_name = k['accountname']
         ifsc = k['ifsc']
         upi = k['upi']
         country = k['country']
