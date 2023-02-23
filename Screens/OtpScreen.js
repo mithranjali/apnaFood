@@ -23,43 +23,51 @@ const OtpScreen = ({ navigation }) => {
   const [user_valid_email, set_user_valid_email] = useState(false);
   const [user_valid_phone, set_user_valid_phone] = useState(false);
 
-  //OTP stuff
-  const [received_otp, set_received_otp] = useState(0);
-  const [otp_verified, set_otp_verified] = useState(false);
-  const backendOtp = ()=>
+  //EMail OTP stuff
+  const [received_email_otp, set_received_email_otp] = useState(0);
+  const [email_otp_verified, set_email_otp_verified] = useState(false);
+
+  //Phone OTP stuff
+  const [received_phone_otp, set_received_phone_otp] = useState(0);
+  const [phone_otp_verified, set_phone_otp_verified] = useState(false);
+  const Backend_Email_Otp = ()=>
   {
-
-
-    const settings = {
-      method: 'get',
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        email: user_email,
-      }),
-    };
 
     fetch('http://apnafood.org.in/email_otp?email='+user_email)
     .then(response=>response.json())
-    .then(data => set_received_otp(data.otp));
+    .then(data => set_received_email_otp(data.otp));
+  };
+  const Backend_Phone_Otp = ()=>
+  {
+
+    fetch('http://apnafood.org.in/sms_otp?phnnum=91'+user_phone)
+    .then(response=>response.json())
+    .then(data => set_received_phone_otp(data.otp));
   };
   const verify_email_otp = () =>{
 
-
-    console.log("unna");
-    console.log(typeof (user_email_otp));
-    console.log(typeof (received_otp));
-    if(Number(user_email_otp)===received_otp)
+    if (Number(user_email_otp)===received_email_otp)
     {
-      set_otp_verified(true);
-      Alert.alert('OTP Verified Succesfully');
+      set_email_otp_verified(true);
+      Alert.alert('Email OTP Verified Succesfully');
     }
     else
     {
-      set_otp_verified(false);
-      Alert.alert('Please check the OTP')
+      set_email_otp_verified(false);
+      Alert.alert('Please check the OTP');
+    }
+  };
+  const verify_phone_otp = () =>{
+
+    if (Number(user_phone_otp)===received_phone_otp)
+    {
+      set_phone_otp_verified(true);
+      Alert.alert('Mobile OTP Verified Succesfully');
+    }
+    else
+    {
+      set_phone_otp_verified(false);
+      Alert.alert('Please check the OTP');
     }
   };
 
@@ -130,9 +138,9 @@ const OtpScreen = ({ navigation }) => {
         <TouchableOpacity
 
           disabled={!user_valid_email} // The button is disabled if the email address is invalid
-          onPress={() => { 
-          set_otp_input_email_show(true); 
-          backendOtp();
+          onPress={() => {
+          set_otp_input_email_show(true);
+          Backend_Email_Otp();
           }}
           style={styles.primary_touchable}>
           <View style={styles.primary_touchable_view}>
@@ -155,7 +163,7 @@ const OtpScreen = ({ navigation }) => {
             <TextInput
             maxLength={4}
               onChangeText={(text) => { set_user_email_otp(text); }}
-              style={styles.primary_text_input} 
+              style={styles.primary_text_input}
               placeholderTextColor="#8399cf"
               placeholder="OTP" />
             <TouchableOpacity
@@ -176,7 +184,7 @@ const OtpScreen = ({ navigation }) => {
               style={styles.primary_text}
             >Didn't receive the code ? </Text>
             <TouchableOpacity
-            onPress={()=>{backendOtp();}}
+            onPress={()=>{Backend_Email_Otp()}}
             >
               <View>
                 <Text style={styles.resend_button_style}>Resend ?</Text>
@@ -201,12 +209,15 @@ const OtpScreen = ({ navigation }) => {
               set_user_valid_phone(false);
             }
           }}
-          style={styles.primary_text_input} 
+          style={styles.primary_text_input}
           placeholderTextColor="#8399cf"
           placeholder="Phone Number" />
         <TouchableOpacity
           disabled={!user_valid_phone}
-          onPress={() => { set_otp_input_phone_show(true); }}
+          onPress={() => {
+            set_otp_input_phone_show(true);
+            Backend_Phone_Otp();
+            }}
           style={styles.primary_touchable}>
           <View style={styles.primary_touchable_view}>
             <Text
@@ -231,6 +242,7 @@ const OtpScreen = ({ navigation }) => {
               placeholderTextColor="#8399cf"
                />
             <TouchableOpacity
+              onPress={()=>{verify_phone_otp()}}
               disabled={!verify_phone_active}
               style={styles.primary_touchable}>
               <View style={styles.primary_touchable_view}>
@@ -245,7 +257,9 @@ const OtpScreen = ({ navigation }) => {
             <Text
               style={styles.primary_text}
             >Didn't receive the code ? </Text>
-            <TouchableOpacity>
+            <TouchableOpacity
+            onPress={()=>{Backend_Phone_Otp()}}
+            >
               <View>
                 <Text style={styles.resend_button_style}>Resend ?</Text>
               </View>
@@ -259,13 +273,26 @@ const OtpScreen = ({ navigation }) => {
       <TouchableOpacity
       onPress={()=>
       {
-        if (otp_verified)
+
+        if (!email_otp_verified && !phone_otp_verified)
+        {
+          Alert.alert('Both Phone and Email OTPs Not Verified');
+        }
+        else if (!email_otp_verified)
+        {
+          Alert.alert('Email OTP Not Verified');
+        }
+        else if (!phone_otp_verified)
+        {
+          Alert.alert('Phone OTP Not Verified');
+        }
+        else if (email_otp_verified && phone_otp_verified)
         {
           navigation.navigate('Screenthree');
         }
         else
         {
-          Alert.alert('OTP Not Verified');
+          Alert.alert('Unknown Error');
         }
       }}
       >
@@ -325,7 +352,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderRadius:10,
     borderColor:'#8399cf',
-  
+
 
 
     //The only Line Config

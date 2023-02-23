@@ -17,7 +17,7 @@ export default function Cheader({active_step}) {
     removeBtnRow={true}
     label="Step 1">
       <View>
-        {/* <Text>Step 1 content</Text> */}
+        
       </View>
     </ProgressStep>
     <ProgressStep
@@ -25,15 +25,16 @@ export default function Cheader({active_step}) {
     removeBtnRow={true}
     label="Step 2">
       <View>
-        {/* <Text>Step 2 content</Text> */}
+        
       </View>
     </ProgressStep>
     <ProgressStep
     style={styles.step}
+    size="10px"
     removeBtnRow={true}
     label="Step 3">
       <View>
-        {/* <Text>Step 3 content</Text> */}
+        
       </View>
     </ProgressStep>
     <ProgressStep
@@ -41,7 +42,7 @@ export default function Cheader({active_step}) {
     removeBtnRow={true}
     label="Step 4">
       <View>
-        {/* <Text>Step 3 content</Text> */}
+       
       </View>
     </ProgressStep>
   </ProgressSteps>

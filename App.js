@@ -1,6 +1,6 @@
 import 'react-native-gesture-handler';
 import React from 'react';
-import {StyleSheet} from 'react-native';
+import {StyleSheet, Button} from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import SignIn from './Screens/SignIn';
@@ -9,14 +9,51 @@ import Screen3 from './Screens/Screen3';
 import Screen4 from './Screens/Screen4';
 import Screen5 from './Screens/Screen5';
 import Cheader from './Components/Cheader';
-
+import Ionicons from 'react-native-vector-icons/Ionicons';
+import Subdistrict_s1 from './Screens/Subdistrict_s1';
+import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
+import VendorNavigation from './Screens/VendorNavigation';
 
 const Stack = createNativeStackNavigator();
-
+const Tab = createBottomTabNavigator();
 // import React from 'react'
 
 export default function App() {
   return (
+
+    // Navigation for Subdistrict
+    // <NavigationContainer>
+    //   <Tab.Navigator>
+    //     <Tab.Screen
+    //       options={{
+    //         headerShown: false,
+    //       }}
+    //       name="Home"
+    //       component={VendorNavigation}
+    //     />
+    //     <Tab.Screen
+    //       options={{
+    //         headerShown: false,
+    //       }}
+    //       name="Not Home 1"
+    //       component={Subdistrict_s1}
+    //     />
+    //     <Tab.Screen
+    //       options={{
+    //         headerShown: false,
+    //       }}
+    //       name="Not Home 2"
+    //       component={Subdistrict_s1}
+    //     />
+    //     <Tab.Screen
+    //       options={{
+    //         headerShown: false,
+    //       }}
+    //       name="Not Home 3"
+    //       component={Subdistrict_s1}
+    //     />
+    //   </Tab.Navigator>
+    // </NavigationContainer>
     <NavigationContainer>
       <Stack.Navigator animationEnabled={false} initialRouteName="SignIn">
         <Stack.Screen
@@ -32,7 +69,7 @@ export default function App() {
           component={OtpScreen}
           options={{
             headerShown: true,
-            headerTitle: () => <Cheader active_step={0} />,
+            // headerTitle: () => <Cheader active_step={0} />,
             headerStyle: {
               height: 100,
             },
@@ -74,18 +111,16 @@ export default function App() {
             },
           }}
         />
-        {/* <Stack.Screen name="Details" component={DetailsScreen} /> */}
+        <Stack.Screen
+          name="Subdistrict_s1"
+          component={Subdistrict_s1}
+          options={{
+            headerShown: false,
+          }}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   );
 }
 
-export const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#dfe9f0',
-    alignItems: 'center',
-    justifyContent: 'center',
-    // marginTop:'14%'
-  },
-});
+

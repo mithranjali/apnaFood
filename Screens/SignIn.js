@@ -61,7 +61,7 @@ const SignIn = ({ navigation }) => {
 
 
       <View>
-        <Text style={styles.text2}>──────── Or, login with ────────</Text>
+        <Text style={styles.text2}>──────── or login with ────────</Text>
       </View>
 
       <View style={styles.icon_container}>
@@ -129,7 +129,7 @@ const styles = StyleSheet.create({
     margin: 20,
     width:300,
     marginHorizontal: 40,
-    borderWidth: 1.2,
+    borderWidth: 0.9,
     padding: 10,
     marginBottom: 6,
     borderRadius:10,
