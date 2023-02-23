@@ -1,15 +1,50 @@
 import uvicorn
-from fastapi import FastAPI, File, UploadFile, Form
+from fastapi import FastAPI, File, UploadFile, Form,Request
 from fastapi import Query,Body
 import smtplib
 from random import randint
 import urllib.request
 import urllib.parse
+import pymongo
+from pymongo.mongo_client import MongoClient
+from pymongo.server_api import ServerApi
 
 app = FastAPI(title="Apna Food", version="1.0")
 @app.get('/hello')
 def hello_world():
         return 'Hello World'
+
+@app.post('/insert_vendor')
+async def insert_registration(request : Request):
+        k = await request.json()
+        client = pymongo.MongoClient("mongodb+srv://sripriya:"+urllib.parse.quote("Orayiram@2020")+"@cluster0.once1vv.mongodb.net/?retryWrites=true&w=majority", server_api=ServerApi('1'))
+        mydb = client.Mithranjali
+        mycol = mydb["vendor_registrations"]
+        uname = k['name']
+        email = k['email']
+        password = k['password']
+        phnnum = k['phonenumber']
+        type_of_org = k['typeoforg']
+        cin = k['cin']
+        pan = k['pan']
+        gst = k['gst']
+        udhyam = k['udhyam']
+        bank_acc_num = k['accountnumber']
+        bank_acc_name = k['']
+        ifsc = k['ifsc']
+        upi = k['upi']
+        country = k['country']
+        state = k['state']
+        district = k['district']
+        sub_district = k['subdistrict']
+        addr= k['address']
+        pin_code = k['pincode']
+
+        mydict = { "username": uname, "email": email, "mobile" : phnnum, "password" : password, "Organization Details": { "type_of_oraganisation" : type_of_org, "cin" : cin, 'pan' : pan, 'gst' :gst, 'udhyam':udhyam}, "Bank Details" : {'bank_account_number': bank_acc_num, 'bank_account_name' : bank_acc_name, 'bank_ifsc' : ifsc, 'upi_ID' : upi} , "Address Details" : {'country': country, 'state':state, 'district': district, 'sub_district' : sub_district, 'address':addr,"PIN_code":pin_code}, "Status" : "In Progress", "Stage" : "Sub District"  }
+        x = mycol.insert_one(mydict)
+        print(x)
+        
+
 
 @app.get('/sms_otp')
 async def send_sms_otp(phnnum: str = Query(..., max_length=50, min_length=3)):
@@ -40,4 +75,5 @@ async def send_email_otp(email: str = Query(..., max_length=50, min_length=3)):
         return {'otp' : otp} 
 
 if __name__ == '__main__':
+        insert_registration()
         uvicorn.run(app)
