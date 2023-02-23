@@ -17,7 +17,7 @@ def hello_world():
 @app.post('/insert_vendor')
 async def insert_registration(request : Request):
         k = await request.json()
-        client = pymongo.MongoClient("mongodb+srv://sripriya:"+urllib.parse.quote("Orayiram@2020")+"@cluster0.once1vv.mongodb.net/?retryWrites=true&w=majority", server_api=ServerApi('1'))
+        client = pymongo.MongoClient("mongodb+srv://sripriya:"+urllib.parse.quote("Orayiram@2020")+"@cluster0.once1vv.mongodb.net/?retryWrites=true&w=majority", server_api=ServerApi('1'), connect = False)
         mydb = client.Mithranjali
         mycol = mydb["vendor_registrations"]
         uname = k['name']
