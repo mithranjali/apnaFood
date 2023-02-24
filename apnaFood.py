@@ -22,7 +22,7 @@ def send_all_vendors():
        for i in mycol.find():
               x.append(i)
        print(x)
-       return {'all_vendors':x}
+       return {'all_vendors':str(x)}
 
 
 @app.post('/insert_vendor')
