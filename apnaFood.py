@@ -13,6 +13,17 @@ app = FastAPI(title="Apna Food", version="1.0")
 @app.get('/hello')
 def hello_world():
         return 'Hello World'
+@app.get('all_vendors')
+def send_all_vendors():
+       client = pymongo.MongoClient("mongodb+srv://sripriya:"+urllib.parse.quote("Orayiram@2020")+"@cluster0.once1vv.mongodb.net/?retryWrites=true&w=majority", server_api=ServerApi('1'), connect = False)
+       mydb = client.Mithranjali
+       mycol = mydb["vendor_registrations"]
+       x = []
+       for i in mycol.find():
+              x.append(i)
+       print(x)
+       return {'all_vendors':x}
+
 
 @app.post('/insert_vendor')
 async def insert_registration(request : Request):
