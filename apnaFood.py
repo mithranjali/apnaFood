@@ -15,7 +15,7 @@ def hello_world():
         return 'Hello World'
 
 @app.get('/sub_district_reject')
-def sub_district_reject(email):
+async def sub_district_reject(email):
         client = pymongo.MongoClient("mongodb+srv://sripriya:"+urllib.parse.quote("Orayiram@2020")+"@cluster0.once1vv.mongodb.net/?retryWrites=true&w=majority", server_api=ServerApi('1'), connect = False) 
         mydb = client.Mithranjali
         mycol = mydb["vendor_registrations"]
@@ -25,7 +25,7 @@ def sub_district_reject(email):
         client.close()
         return 'rejected by sub district franchisee'
 @app.get('/all_vendors')
-def send_all_vendors():
+async def send_all_vendors():
        client = pymongo.MongoClient("mongodb+srv://sripriya:"+urllib.parse.quote("Orayiram@2020")+"@cluster0.once1vv.mongodb.net/?retryWrites=true&w=majority", server_api=ServerApi('1'), connect = False)
        mydb = client.Mithranjali
        mycol = mydb["vendor_registrations"]
@@ -93,9 +93,10 @@ async def send_email_otp(email: str = Query(..., max_length=50, min_length=3)):
             server.starttls()
             server.login(sender, password)
             server.sendmail(sender, receiver, message)
+            server.quit()
         except Exception as e:
             print("Failed to send email. Error:", e)
-        server.quit()
+        
         return {'otp' : otp} 
 
 if __name__ == '__main__':
