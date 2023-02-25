@@ -12,7 +12,7 @@ from pymongo.server_api import ServerApi
 app = FastAPI(title="Apna Food", version="1.0")
 @app.get('/hello')
 def hello_world():
-        return 'Hello World'
+        return 'Hello World 123'
 
 @app.get('/sub_district_reject')
 async def sub_district_reject(email):
