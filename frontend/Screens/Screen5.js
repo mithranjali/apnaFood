@@ -16,9 +16,7 @@ import {
   TouchableOpacity,
   KeyboardAvoidingView,
 } from 'react-native';
-const Screen5 = ({route}) => {
-  const {user_name, user_password, user_phone, user_email, typeoforg, cin, gst, pan, udayam, user_UPI_ID, user_account_name, user_bank_IFSC_code, user_bank_account_number} = route.params;
-  
+const Screen5 = () => {
   const [text, onChangeText] = React.useState('');
   const [country, set_country] = React.useState('');
   const [state, set_state] = React.useState('');
@@ -26,60 +24,13 @@ const Screen5 = ({route}) => {
   const [sub_district, set_sub_district] = React.useState('');
   const [address, set_address] = React.useState('');
   const [pin_code, set_pin_code] = React.useState('');
-  const upload_details = async() =>{
-
-      const settings = {
-      method: 'POST',
-      headers: {
-        Accept: 'application/json, text/plain',
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        "name" : user_name,
-        "email":user_email,
-        "password": user_password,
-        "phonenumber":user_phone,
-        "typeoforg":typeoforg,
-        "cin":cin,
-        "pan":pan,
-        "gst":gst,
-        "udhyam":udayam,
-        "accountnumber":user_bank_account_number,
-        "accountname":user_account_name,
-        "ifsc":user_UPI_ID,
-        "upi": user_UPI_ID,
-        "country":country,
-        "state":state,
-        "district": district,
-        "subdistrict": sub_district,
-        "address": address,
-        "pincode":pin_code,
-
-      }),
-    };
-    try{
-    console.log("pilichav\n");
-
-      fetch('http://apnafood.org.in/insert_vendor',settings)
-      .then(response=>response.json())
-      .then(data=>console.log(data))
-      .catch(err=>console.log("The UPPER"+ err))
-    // const fetchresponse = await fetch('http://apnafood.org.in/insert_vendor',settings);
-    // const data = await fetchresponse.json();
-    // console.log(data);
-    }
-    catch(err)
-    {
-      console.error("The Lower "+err);
-    }
-  }
   return (
     <SafeAreaView style={styles.Container}>
       <KeyboardAvoidingView>
         <TextInput
           style={styles.input}
           value={country}
-          onChangeText={val => set_country(val) }
+          onChangeText={val => console.log(val)}
           placeholderTextColor="#8399cf"
           placeholder="Country"
         />
@@ -132,9 +83,7 @@ const Screen5 = ({route}) => {
           placeholder="GIS"
         />
 
-        <TouchableOpacity style={styles.button} onPress={() => {
-        upload_details();
-        }}>
+        <TouchableOpacity style={styles.button} onPress={() => {}}>
           <Text style={{fontSize: 15, color:'#f5f5f5'}}>Submit</Text>
         </TouchableOpacity>
       </KeyboardAvoidingView>
@@ -181,13 +130,15 @@ const styles = StyleSheet.create({
 
   button: {
     alignItems: 'center',
-    backgroundColor: '#f26422',
-    padding: 13,
+    // backgroundColor: '#f26422',
+    padding: 15,
     borderRadius:6,
     width: 300,
     alignSelf: 'center',
-    fontFamily:'didactgothic-regular',
-    marginTop:18 
+    marginVertical: 20,
+    borderColor:'#f58551',
+    backgroundColor:'#f58551',
+    // marginTop: 90,
   },
 });
 

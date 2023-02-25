@@ -16,13 +16,9 @@ import {
     TouchableOpacity,
     KeyboardAvoidingView,
 } from 'react-native';
-const Screen4 = ({navigation, route}) => {
+const Screen4 = ({navigation}) => {
 
-  const {user_email, user_name, user_password, user_phone,typeoforg, gst, pan, udayam, cin} = route.params;
-  console.log(route.params);
-  const [user_account_name, set_user_account_name] = useState('');
-  
-  const [user_bank_account_number, set_user_bank_account_number] = useState('none');
+    const [user_bank_account_number, set_user_bank_account_number] = useState('none');
   const [user_valid_account_number, set_user_valid_account_number] = useState(false);
   const [user_bank_IFSC_code, set_user_bank_IFSC_code] = useState('none');
   const [user_valid_bank_IFSC_code, set_user_valid_bank_IFSC_code] = useState(false);
@@ -56,12 +52,10 @@ const Screen4 = ({navigation, route}) => {
         ) : (
             <></>
         )}
+
         <TextInput
           style={styles.input}
-          onChangeText={(text)=>
-          {
-            set_user_account_name(text);
-          }}
+          //   onChangeText={onChangeText}
           placeholderTextColor='#8399cf'
           placeholder="Bank Account Name"
           />
@@ -119,24 +113,10 @@ const Screen4 = ({navigation, route}) => {
           style={styles.button}
                 onPress={
                     ()=>{
-                      navigation.navigate('Screen5',{
-                user_email,
-                user_name,
-                user_password,
-                user_phone,
-                typeoforg,
-                cin,
-                pan,
-                gst,
-                udayam,
-                user_account_name,
-                user_UPI_ID,
-                user_bank_IFSC_code,
-                user_bank_account_number,
-              });
+                        navigation.navigate('Screen5');
                     }
                 }>
-          <Text style={{fontSize: 18, color:'#f5f5f5'}}>Next</Text>
+          <Text style={{fontSize: 15, color:'#f5f5f5'}}>Next ➪</Text>
         </TouchableOpacity>
       </KeyboardAvoidingView>
     </SafeAreaView>
@@ -165,14 +145,15 @@ const styles = StyleSheet.create({
       fontSize:14,
     },
     button: {
-      alignItems: 'center',
-      backgroundColor: '#f26422',
-      padding: 13,
-      borderRadius:6,
-      width: 300,
-      alignSelf: 'center',
-      fontFamily:'didactgothic-regular',
-      marginTop:18 
+    alignItems: 'center',
+    padding: 15,
+    borderRadius:6,
+    width: 300,
+    //   alignSelf: 'center',
+    marginVertical: 20,
+    borderColor:'#f58551',
+    backgroundColor:'#f58551'
+    //   marginTop: 190,
     },
     text: {
       fontSize: 24,

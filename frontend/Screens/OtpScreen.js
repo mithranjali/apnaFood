@@ -1,4 +1,3 @@
-/* eslint-disable react-native/no-inline-styles */
 /* eslint-disable prettier/prettier */
 /* eslint-disable space-infix-ops */
 import RnOtpTimer from 'rn-otp-timer';
@@ -16,9 +15,6 @@ const OtpScreen = ({ navigation }) => {
   const [user_email_otp, set_user_email_otp] = useState('');
   const [user_phone_otp, set_user_phone_otp] = useState('');
 
-  //States for shwoing verification status of user
-  const [email_verified, set_email_verified] = useState(false);
-  const [phone_verified, set_phone_verified] = useState(false);
 
   //States for details storage and validation
   const [user_name, set_user_name] = useState('');
@@ -26,7 +22,6 @@ const OtpScreen = ({ navigation }) => {
   const [user_phone, set_user_phone] = useState('none');
   const [user_valid_email, set_user_valid_email] = useState(false);
   const [user_valid_phone, set_user_valid_phone] = useState(false);
-  const [user_password, set_user_password] = useState('');
 
   //EMail OTP stuff
   const [received_email_otp, set_received_email_otp] = useState(0);
@@ -40,22 +35,14 @@ const OtpScreen = ({ navigation }) => {
 
     fetch('http://apnafood.org.in/email_otp?email='+user_email)
     .then(response=>response.json())
-    .then(data => set_received_email_otp(data.otp))
-    .catch((err) =>{
-      console.log(err);
-      Alert.alert('Internal Server Error');
-    });
+    .then(data => set_received_email_otp(data.otp));
   };
   const Backend_Phone_Otp = ()=>
   {
 
     fetch('http://apnafood.org.in/sms_otp?phnnum=91'+user_phone)
     .then(response=>response.json())
-    .then(data => set_received_phone_otp(data.otp))
-    .catch((err) =>{
-      console.log(err);
-      Alert.alert('Internal Server Error');
-    });
+    .then(data => set_received_phone_otp(data.otp));
   };
   const verify_email_otp = () =>{
 
@@ -92,6 +79,9 @@ const OtpScreen = ({ navigation }) => {
   var verify_email_active = false;
   var verify_phone_active = false;
 
+
+
+
   if (user_email_otp.length === 4) {
     verify_email_active = true;
   }
@@ -126,19 +116,11 @@ const OtpScreen = ({ navigation }) => {
         style={styles.secondary_text_Input}
         placeholderTextColor="#8399cf"
         placeholder="Name" />
-      <TextInput
-        onChangeText={(text) => set_user_password(text)}
-        style={styles.secondary_text_Input}
-        placeholderTextColor="#8399cf"
-        // type="password"
-        secureTextEntry={true}
-        placeholder="Password" />
       {/* This View is a container for Email Address ans its otp */}
       <View style={styles.primary_inputs_view}>
         {/* This input field takes email address */}
         <TextInput
           keyboardType="email-address"
-          disabled = {!email_otp_verified}
           onChangeText={value => {
             var validRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
             if (value.match(validRegex)) {
@@ -150,57 +132,21 @@ const OtpScreen = ({ navigation }) => {
               set_user_valid_email(false);
             }
           }}
-          // style={styles.primary_text_input}
-            style={
-              // eslint-disable-next-line react-native/no-inline-styles
-              {
-                fontFamily:'didactgothic-regular',
-                letterSpacing:0.7,
-                width: 225,
-                height: 50,
-                // width: 260,
-                padding: 10,
-                marginVertical: 16,
-                // borderColor: 'black',
-                color: email_otp_verified ?'#8ec63e':'#8399cf',
-                borderWidth: 1,
-                borderTopLeftRadius:6,
-                borderBottomLeftRadius:6,
-                borderTopColor: email_otp_verified ?'#8ec63e':'#8399cf',
-                borderBottomColor: email_otp_verified ?'#8ec63e':'#8399cf',
-                borderLeftColor: email_otp_verified ?'#8ec63e':'#8399cf',
-                borderRightColor:'transparent',
-              }
-            }
-          placeholderTextColor={email_otp_verified ?'#8ec63e':'#8399cf'}
-          placeholder={email_otp_verified ?user_email:'Email Addres'}/>
+          style={styles.primary_text_input}
+          placeholderTextColor="#8399cf"
+          placeholder="Email Address" />
         <TouchableOpacity
 
-          disabled={!user_valid_email || email_otp_verified} // The button is disabled if the email address is invalid
+          disabled={!user_valid_email} // The button is disabled if the email address is invalid
           onPress={() => {
           set_otp_input_email_show(true);
           Backend_Email_Otp();
           }}
-          // style={styles.primary_touchable}
-          >
-          <View
-          // eslint-disable-next-line react-native/no-inline-styles
-            style={{
-                width: 75,
-                height: 50,
-                borderWidth: 1,
-                alignItems: 'center',
-                justifyContent: 'center',
-                borderTopRightRadius:6,
-                borderBottomRightRadius:6,
-                backgroundColor:email_otp_verified?'#8ec63e':'#F26422',
-                color:'#ffffff',
-                borderColor:email_otp_verified?'#8ec63e':'#F26422',
-            }}
-          >
+          style={styles.primary_touchable}>
+          <View style={styles.primary_touchable_view}>
             <Text
             style={styles.button_sendotp}
-            >{email_otp_verified?"Verified":"Send Otp"}</Text>
+            >Send Otp</Text>
           </View>
         </TouchableOpacity>
       </View>
@@ -211,7 +157,7 @@ const OtpScreen = ({ navigation }) => {
         > Enter valid Email id</Text>
         : <></>}
       {/* This Block will appear only when the send otp button is pressed after validating email address */}
-      {otp_input_email_show && !email_otp_verified?
+      {otp_input_email_show ?
         <View>
           <View style={styles.primary_inputs_view}>
             <TextInput
@@ -226,15 +172,14 @@ const OtpScreen = ({ navigation }) => {
               // activeOpacity={verify_email_active? 1 : 0.7} // TODO Properly - Trying to distinguish between active verify button and inactive verify button
               style={styles.primary_touchable}>
               <View style={styles.primary_touchable_view}>
-                <Text style={styles.verify_style}>Verify</Text>
+                <Text>Verify</Text>
               </View>
             </TouchableOpacity>
           </View>
-          {!email_otp_verified && <View style={styles.extra_text_view}>
-          <Text style={styles.primary_text} >
-            Check your email, otp ends in 5
-          </Text>
-            <View style={styles.extra_view_inside}>
+          <Text
+            style={styles.primary_text}
+          >Check your email, otp ends in 5</Text>
+          <View style={styles.extra_text_view}>
             <Text
               style={styles.primary_text}
             >Didn't receive the code ? </Text>
@@ -245,8 +190,7 @@ const OtpScreen = ({ navigation }) => {
                 <Text style={styles.resend_button_style}>Resend ?</Text>
               </View>
             </TouchableOpacity>
-            </View>
-          </View>}
+          </View>
         </View>
         : <></>
       }
@@ -265,62 +209,10 @@ const OtpScreen = ({ navigation }) => {
               set_user_valid_phone(false);
             }
           }}
-          style={
-              // eslint-disable-next-line react-native/no-inline-styles
-              {
-                fontFamily:'didactgothic-regular',
-                letterSpacing:0.7,
-                width: 225,
-                height: 50,
-                // width: 260,
-                padding: 10,
-                marginVertical: 16,
-                // borderColor: 'black',
-                color: phone_otp_verified ?'#8ec63e':'#8399cf',
-                borderWidth: 1,
-                borderTopLeftRadius:6,
-                borderBottomLeftRadius:6,
-                borderTopColor: phone_otp_verified ?'#8ec63e':'#8399cf',
-                borderBottomColor: phone_otp_verified ?'#8ec63e':'#8399cf',
-                borderLeftColor: phone_otp_verified ?'#8ec63e':'#8399cf',
-                borderRightColor:'transparent',
-              }
-            }
-          placeholderTextColor={phone_otp_verified ?'#8ec63e':'#8399cf'}
-          placeholder={phone_otp_verified ?user_phone:'Phone Number'}
-
-          />
-        
+          style={styles.primary_text_input}
+          placeholderTextColor="#8399cf"
+          placeholder="Phone Number" />
         <TouchableOpacity
-
-          disabled={!user_valid_phone || phone_otp_verified} // The button is disabled if the email address is invalid
-          onPress={() => {
-          set_otp_input_phone_show(true);
-          Backend_Phone_Otp();
-          }}
-          // style={styles.primary_touchable}
-          >
-          <View
-          // eslint-disable-next-line react-native/no-inline-styles
-            style={{
-                width: 75,
-                height: 50,
-                borderWidth: 1,
-                alignItems: 'center',
-                justifyContent: 'center',
-                borderTopRightRadius:6,
-                borderBottomRightRadius:6,
-                backgroundColor:phone_otp_verified?'#8ec63e':'#F26422',
-                color:'#ffffff',
-                borderColor:phone_otp_verified?'#8ec63e':'#F26422',
-            }}
-          >
-            <Text
-            style={styles.button_sendotp}
-            >{phone_otp_verified?"Verified":"Send Otp"}</Text>
-          </View>
-        </TouchableOpacity>
-        {/* <TouchableOpacity
           disabled={!user_valid_phone}
           onPress={() => {
             set_otp_input_phone_show(true);
@@ -330,11 +222,9 @@ const OtpScreen = ({ navigation }) => {
           <View style={styles.primary_touchable_view}>
             <Text
             style={styles.button_sendotp}
-            >
-              {phone_otp_verified?"Verified":"Send Otp"}
-            </Text>
+            >Send Otp</Text>
           </View>
-        </TouchableOpacity> */}
+        </TouchableOpacity>
       </View>
       {user_phone !== 'none' && !user_valid_phone ?
         <Text
@@ -342,7 +232,7 @@ const OtpScreen = ({ navigation }) => {
         > Enter valid Phone Number</Text>
         : <></>}
       {/* This Block will appear only when the send otp button is pressed after validating email address */}
-      {otp_input_phone_show && !phone_otp_verified?
+      {otp_input_phone_show ?
         <View>
           <View style={styles.primary_inputs_view}>
             <TextInput
@@ -356,15 +246,14 @@ const OtpScreen = ({ navigation }) => {
               disabled={!verify_phone_active}
               style={styles.primary_touchable}>
               <View style={styles.primary_touchable_view}>
-                <Text style={styles.verify_style}>Verify</Text>
+                <Text>Verify</Text>
               </View>
             </TouchableOpacity>
           </View>
-          {!phone_otp_verified && <View style={styles.extra_text_view}>
-          <Text style={styles.primary_text} >
-            Check your Phone, otp ends in 5
-          </Text>
-            <View style={styles.extra_view_inside}>
+          <Text
+            style={styles.primary_text}
+          >Check your phone number, otp ends in 5</Text>
+          <View style={styles.extra_text_view}>
             <Text
               style={styles.primary_text}
             >Didn't receive the code ? </Text>
@@ -375,28 +264,11 @@ const OtpScreen = ({ navigation }) => {
                 <Text style={styles.resend_button_style}>Resend ?</Text>
               </View>
             </TouchableOpacity>
-            </View>
-          </View>}
-          {/* <View style={styles.extra_text_view}>
-          <Text style={styles.primary_text} >
-            Check your Phone, otp ends in 5
-          </Text>
-            <View style={styles.extra_view_inside}>
-            <Text
-              style={styles.primary_text}
-            >Didn't receive the code ? </Text>
-            <TouchableOpacity
-            onPress={()=>{Backend_Phone_Otp()}}
-            >
-              <View>
-                <Text style={styles.resend_button_style}>Resend ?</Text>
-              </View>
-            </TouchableOpacity>
-            </View>
-          </View> */}
+          </View>
         </View>
         : <></>
       }
+
       {/* The Following code is for Submit Button */}
       <TouchableOpacity
       onPress={()=>
@@ -416,14 +288,7 @@ const OtpScreen = ({ navigation }) => {
         }
         else if (email_otp_verified && phone_otp_verified)
         {
-
-          navigation.navigate('Screenthree', {
-                    user_name,
-                    user_email,
-                    user_phone,
-                    user_password,
-                  });
-
+          navigation.navigate('Screenthree');
         }
         else
         {
@@ -433,12 +298,7 @@ const OtpScreen = ({ navigation }) => {
       >
         <View style={styles.submit_touchable}>
           <Text
-          style={{
-            color:'#f5f5f5',
-            fontSize:18,
-            fontFamily:'didactgothic-regular',
-            textAlign:'center',
-          }}
+          style={styles.primary_text}
           > Next </Text>
         </View>
       </TouchableOpacity>
@@ -453,7 +313,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    // backgroundColor:'#f5f5f5'
+    backgroundColor:'#f5f5f5'
   },
 
   touchable_otp: {
@@ -473,15 +333,16 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    borderTopRightRadius:6,
-    borderBottomRightRadius:6,
-    backgroundColor:'#F26422',
-    color:'#ffffff',
-    borderColor:'#F26422',
+    borderRadius:6,
+    borderColor:'#8399cf',
+    // paddingHorizontal: 8,
+
+    //The Only Line Config
+    // borderTopWidth: 0,
+    // borderRightWidth: 0,
+    // borderLeftWidth: 0,
   },
   primary_text_input: {
-    fontFamily:'didactgothic-regular',
-    letterSpacing:0.7,
     width: 225,
     height: 50,
     // width: 260,
@@ -489,12 +350,8 @@ const styles = StyleSheet.create({
     marginVertical: 16,
     // borderColor: 'black',
     borderWidth: 1,
-    borderTopLeftRadius:6,
-    borderBottomLeftRadius:6,
-    borderTopColor:'#8399cf',
-    borderBottomColor:'#8399cf',
-    borderLeftColor:'#8399cf',
-    borderRightColor:'transparent',
+    borderRadius:6,
+    borderColor:'#8399cf',
 
 
 
@@ -511,7 +368,6 @@ const styles = StyleSheet.create({
     borderColor:'#8399cf',
     borderWidth: 1,
     borderRadius:6,
-    letterSpacing:0.7,
 
     //The Only Line Config
     // borderLeftWidth: 0,
@@ -519,11 +375,6 @@ const styles = StyleSheet.create({
     // borderTopWidth: 0,
   },
   extra_text_view: {
-    // flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  extra_view_inside:{
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
@@ -532,12 +383,9 @@ const styles = StyleSheet.create({
     color: 'black',
   },
   primary_text: {
-    fontFamily:'didactgothic-regular',
-    letterSpacing:0.7,
     textAlign: 'center',
     marginVertical: 2,
-    // color:'#F5F5F5',
-    // fontSize:18,
+    // color:'#'
   },
   submit_touchable: {
 
@@ -548,17 +396,14 @@ const styles = StyleSheet.create({
     width:300,
     paddingHorizontal: 12,
     paddingVertical: 12,
-    borderRadius: 6,
-    borderColor:'#F26422',
-    backgroundColor:'#F26422',
-
+    borderRadius:6,
+    borderColor:'#f58551',
+    backgroundColor:'#f58551'
     // alignSelf:'flex-end'
     // justifySelf: 'center',
   },
   validation_style: {
     color: 'red',
-    letterSpacing:0.7,
-    fontSize:12,
     fontStyle: 'italic',
   },
   primary_otp:{
@@ -567,21 +412,16 @@ const styles = StyleSheet.create({
   },
   button_sendotp:{
     // color:'black',
-    color:'#ffffff',
-    fontFamily:'didactgothic-regular',
-    letterSpacing:0.7,
+    color:'#8399cf'
   },
   heading:{
     // color:'black',
-    fontFamily:'didactgothic-regular',
-    letterSpacing:0.7,
     color:'#8399cf',
-    // fontFamily:'Didact Gothic',
     // textAlign:'left',
     alignSelf:'flex-start',
     // marginRight:140,
     // marginBottom:'',
-    marginLeft:'12%',
+    marginLeft:'14%',
     marginVertical:10,
     fontSize:24,
   },
@@ -592,11 +432,7 @@ const styles = StyleSheet.create({
     marginBottom:50,
     paddingBottom:0,
 
-  },
-  verify_style:{
-    fontFamily:'didactgothic-regular',
-    color:'#f5f5f5',
-  },
+  }
 });
 
 export default OtpScreen;

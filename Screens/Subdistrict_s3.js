@@ -5,60 +5,92 @@ import { Text, View, divider, TextInput,Image, TouchableOpacity, KeyboardAvoidin
 import { StyleSheet } from 'react-native';
 
 
-const Subdistrict_s3 = ({navigation}) => {
-  return (
+const Subdistrict_s3 = ({navigation, route}) => {
+  
+    // console.log(route.params["data"]);
+    const data = route.params["data"];
+    return (
     <View style={styles.Container}>
-        <Text
-        style={styles.headingmain}
-        >User Details</Text>
+        
         <ScrollView
-        showsVerticalScrollIndicator={false}
+            showsVerticalScrollIndicator={false}
+            style={{
+                width: '90%',
+            }}
         >
+        <Text
+            style={styles.headingmain}
+        >
+            User Details
+        </Text>
+
         <View style={styles.menu_container}>
         <Text
         style={styles.heading1}
-        >General Details</Text>
-        <Text style={styles.attribute}> <Text style={styles.heading2} >Name :</Text> Rahul </Text>
-        <Text style={styles.attribute}> <Text style={styles.heading2} >Email :</Text> abc@gmail.com </Text>
-        <Text style={styles.attribute}> <Text style={styles.heading2} >Phone :</Text> 99999999xxxx </Text>
-        <View style={styles.line} />
+        >
+            General Details
+        </Text>
+            <Text style={styles.attribute}><Text style={styles.heading2} >Name :</Text> <Text style={styles.detail} >{data.username}</Text> </Text>
+            <Text style={styles.attribute}><Text style={styles.heading2} >Email :</Text> <Text style={styles.detail} >{data.email}</Text> </Text>
+            <Text style={styles.attribute}><Text style={styles.heading2} >Phone :</Text> <Text style={styles.detail} >{data.mobile}</Text> </Text>
+
+            <View style={styles.line} />
+
         <Text
-        style={styles.heading1}
-        >Bank Details</Text>
-        <Text style={styles.attribute}> <Text style={styles.heading2} >Bank Account Number :</Text> 1234 4567 8900 </Text>
-        <Text style={styles.attribute}> <Text style={styles.heading2} >Bank Account Name :</Text> M Rahul Ramakrishna </Text>
-        <Text style={styles.attribute}> <Text style={styles.heading2} >Bank IFSC Number :</Text> HDFC0000xxx </Text>
-        <Text style={styles.attribute}> <Text style={styles.heading2} >UPI :</Text> OKHDFC@ybl</Text>
+            style={styles.heading1}
+        >
+            Bank Details
+        </Text>
+
+        <Text style={styles.attribute}><Text style={styles.heading2} >Bank Acc No :</Text> <Text style={styles.detail} >{data["Bank Details"]["bank_account_number"]}</Text> </Text>
+        <Text style={styles.attribute}><Text style={styles.heading2} >Bank Acc Na :</Text> <Text style={styles.detail} >{data["Bank Details"]["bank_account_name"]}</Text> </Text>
+        <Text style={styles.attribute}><Text style={styles.heading2} >Bank IFSC No :</Text> <Text style={styles.detail} >{data["Bank Details"]["bank_ifsc"]}</Text> </Text>
+        <Text style={styles.attribute}><Text style={styles.heading2} >Bank UPI Id :</Text> <Text style={styles.detail} >{data["Bank Details"]["upi_ID"]}</Text> </Text>
         <View style={styles.line} />
         <Text
         style={styles.heading1}
         >Location Details</Text>
-        <Text style={styles.attribute}> <Text style={styles.heading2} >Country :</Text> India </Text>
-        <Text style={styles.attribute}> <Text style={styles.heading2} >State :</Text> Telangana </Text>
-        <Text style={styles.attribute}> <Text style={styles.heading2} >District :</Text> Hyderabad </Text>
-        <Text style={styles.attribute}> <Text style={styles.heading2} >Subdistrict :</Text> Malkajgiri </Text>
-        <Text style={styles.attribute}> <Text style={styles.heading2} >Address :</Text> P177, R55, Enclave, SEC-BAD </Text>
-        <Text style={styles.attribute}> <Text style={styles.heading2} >Pincode :</Text> 500070 </Text>
+        <Text style={styles.attribute}><Text style={styles.heading2} >Country :</Text> <Text style={styles.detail} >{data["Address Details"]["country"]}</Text> </Text>
+        <Text style={styles.attribute}><Text style={styles.heading2} >State :</Text> <Text style={styles.detail} >{data["Address Details"]["state"]}</Text> </Text>
+        <Text style={styles.attribute}><Text style={styles.heading2} >District :</Text> <Text style={styles.detail} >{data["Address Details"]["district"]}</Text> </Text>
+        <Text style={styles.attribute}><Text style={styles.heading2} >Sub District :</Text> <Text style={styles.detail} >{data["Address Details"]["sub_district"]}</Text> </Text>
+        <Text style={styles.attribute}><Text style={styles.heading2} >Address :</Text> <Text style={styles.detail} >{data["Address Details"]["address"]}</Text> </Text>
+        <Text style={styles.attribute}><Text style={styles.heading2} >Pincode :</Text> <Text style={styles.detail} >{data["Address Details"]["PIN_code"]}</Text> </Text>
         <View style={styles.line} />
         <Text
         style={styles.heading1}
         >Organization Details</Text>
-        <Text style={styles.attribute}> <Text style={styles.heading2} >CIN :</Text> 123456789 </Text>
-        <Text style={styles.attribute}> <Text style={styles.heading2} >PAN :</Text> 123456789 </Text>
-        <Text style={styles.attribute}> <Text style={styles.heading2} >GST :</Text> 123456789 </Text>
-        <Text style={styles.attribute}> <Text style={styles.heading2} >UDYAM :</Text> 123456789 </Text>
+        <Text style={styles.attribute}><Text style={styles.heading2} >Organization :</Text> <Text style={styles.detail} >{data["Organization Details"]["type_of_oraganisation"]}</Text> </Text>
+        <Text style={styles.attribute}><Text style={styles.heading2} >PAN Number:</Text> <Text style={styles.detail} >{data["Organization Details"]["pan"]}</Text> </Text>
+        <Text style={styles.attribute}><Text style={styles.heading2} >CIN Number :</Text> <Text style={styles.detail} >{data["Organization Details"]["cin"]}</Text> </Text>
+        <Text style={styles.attribute}><Text style={styles.heading2} >GST Number :</Text> <Text style={styles.detail} >{data["Organization Details"]["gst"]}</Text> </Text>
+        <Text style={styles.attribute}><Text style={styles.heading2} >UDHYAM:</Text> <Text style={styles.detail} >{data["Organization Details"]["udhyam"]}</Text> </Text>
         <View style={styles.line} />
         </View>
         </ScrollView>
         <View style={styles.buttons_container}>
         <TouchableOpacity>
             <View style={styles.button1}>
-                <Text>APPROVE</Text>
+                <Text
+                style={{
+                    fontFamily:'didactgothic-regular',
+                    letterSpacing:0.7,
+                    color:'#f5f5f5',
+                    fontSize:18,
+                }}
+                >Approve</Text>
             </View>
         </TouchableOpacity>
         <TouchableOpacity>
             <View style={styles.button2}>
-                <Text>REJECT</Text>
+            <Text
+                style={{
+                    fontFamily:'didactgothic-regular',
+                    letterSpacing:0.7,
+                    color:'#f5f5f5',
+                    fontSize:18,
+                }}
+                >Reject</Text>
             </View>
         </TouchableOpacity>
         </View>
@@ -72,48 +104,56 @@ const styles = StyleSheet.create({
         flex:1,
         justifyContent: 'center',
         alignItems: 'center',
-        padding:'6%',
+        // padding:'6%',
         backgroundColor:'#f5f5f5'
         // backgroundColor:'red',
     },
+    detail:{
+        color:'#8399cf',
+        fontSize:16,
+    },
     buttons_container:{
         // backgroundColor:'red',
-        width:'90%',
-        margin:'2%',
+        width:'100%',
+        margin:'3%',
         flexDirection: 'row',
         // alignItems:'',
         alignContent:'space-between',
-        justifyContent: 'space-around',
+        justifyContent: 'space-evenly',
     },
     button1:{
         backgroundColor:'#8EC63E',
+        color:"#f5f5f5",
         // padding:'12%',
-        width:140,
+        width:'100%',
         alignItems:'center',
         height:50,
         paddingHorizontal:'16%',
         justifyContent: 'center',
-        borderRadius:16,
+        borderRadius:6,
     },
     button2:{
-        backgroundColor:'#F58551',
+        backgroundColor:'red',
         // padding:'12%',
-        width:140,
+        width:'100%',
         height:50,
         paddingHorizontal:'16%',
         alignItems:'center',
         justifyContent: 'center',
-        borderRadius:16,
+        borderRadius:6,
     },
     headingmain:{
+        fontFamily:'didactgothic-regular',
+        letterSpacing:0.7,
         fontSize:28,
         color:'#8399cf',
         // padding:8,
-        fontWeight:'700',
         alignSelf:'flex-start',
-        margin:'5%',
+        marginVertical:'5%',
     },
     heading1:{
+        fontFamily:'didactgothic-regular',
+        letterSpacing:0.7,
         // alignSelf:'flex-start',
         color:'black',
         fontSize:20,
@@ -122,81 +162,32 @@ const styles = StyleSheet.create({
         alignSelf: 'flex-start',
     },
     heading2:{
+        fontFamily:'didactgothic-regular',
         // color:'#f5f5f5',
+        letterSpacing:0.7,
         fontSize:16,
         color:'black',
         marginVertical:'2%',
     },
     attribute:{
         fontSize:16,
-        marginVertical:'2%',
+        letterSpacing:0.7,
+        marginVertical:2.4,
+        fontFamily:'didactgothic-regular',
     },
     menu_container:{
         flex:1,
-        // justifyContent: 'space-around',
-        // alignItems: 'center',
-        height:'90%',
-        width:'90%',
+        width:'100%',
         // backgroundColor:'blue'
-    },
-    box1:{
-        // flex:1,
-        // justifyContent:'space-between',
-        // alignItems: 'center',
-        padding:'7%',
-        margin:'3%',
-        height:150,
-        width:'100%',
-        borderRadius:20,
-        backgroundColor:'#f58551',
-    },
-    box2:{
-        // flex:1,
-        // justifyContent:'space-between',
-        // alignItems: 'center',
-        padding:'7%',
-        margin:'3%',
-        height:150,
-        width:'100%',
-        borderRadius:20,
-        backgroundColor:'#f7b93d',
-    },
-    box3:{
-        // flex:1,
-        // justifyContent:'space-between',
-        // alignItems: 'center',
-        padding:'6%',
-        margin:'3%',
-        height:150,
-        width:'100%',
-        borderRadius:20,
-        backgroundColor:'#8ec63e',
-    },
-    icon1:{
-        alignSelf:'flex-end',
-        height:90,
-        width:120,
-        // justifySelf:'flex-start',
-    },
-    icon2:{
-        alignSelf:'flex-end',
-        height:90,
-        width:120,
-        // justifySelf:'flex-start',
-    },
-    icon3:{
-        alignSelf:'flex-end',
-        height:90,
-        width:115,
-        // justifySelf:'flex-start',
     },
     innner_text:{
     color:'black',
     },
     line:{
-        margin:'6%',
-        borderBottomColor:'black',
-        borderBottomWidth:StyleSheet.hairlineWidth
+        marginVertical:15,
+        borderBottomColor:'#999999',
+        borderBottomWidth:StyleSheet.hairlineWidth,
+        width:'100%',
     }
 });
 

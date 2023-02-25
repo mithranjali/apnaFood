@@ -22,7 +22,7 @@ const Subdistrict_s1 = ({navigation}) => {
             >
             <Text
             style={styles.heading2}
-            >Food</Text>
+            >FOOD</Text>
             <Image style={styles.icon1} source={require('../Food_Icon_nobg.png')} />
             </TouchableOpacity>
             <TouchableOpacity
@@ -32,7 +32,7 @@ const Subdistrict_s1 = ({navigation}) => {
             <Text
             style={styles.heading2}
             >Vendor</Text>
-            <Image style={styles.icon2} source={require('../Restaurant_Icon_nobg.png')} />
+            <Image style={styles.icon2} source={require('../Food_Icon_nobg.png')} />
             </TouchableOpacity>
             <TouchableOpacity
             style={styles.box3}
@@ -59,24 +59,23 @@ const styles = StyleSheet.create({
     },
     heading1:{
         // alignSelf:'flex-start',
-        color:'#8399cf',
+        color:'black',
         fontSize:24,
-        // fontWeight:'700',
+        fontWeight:'700',
         marginBottom:'5%',
         alignSelf: 'flex-start',
-        fontFamily:'didactgothic-regular',
     },
     heading2:{
         color:'#f5f5f5',
-        fontSize:27,
+        fontSize:20,
         alignSelf: 'flex-start',
-        fontFamily:'didactgothic-regular',
     },
     menu_container:{
         flex:1,
-        // justifyContent: 'space-around',
+        justifyContent: 'space-around',
         alignItems: 'center',
-        width:'100%',
+        height:'90%',
+        width:'90%',
         // backgroundColor:'blue'
     },
     box1:{
@@ -114,20 +113,20 @@ const styles = StyleSheet.create({
     },
     icon1:{
         alignSelf:'flex-end',
-        height:80,
-        width:80,
+        height:90,
+        width:120,
         // justifySelf:'flex-start',
     },
     icon2:{
         alignSelf:'flex-end',
-        height:80,
-        width:80,
+        height:90,
+        width:120,
         // justifySelf:'flex-start',
     },
     icon3:{
         alignSelf:'flex-end',
-        height:80,
-        width:90,
+        height:90,
+        width:115,
         // justifySelf:'flex-start',
     }
 

@@ -1,126 +1,114 @@
 import 'react-native-gesture-handler';
 import React from 'react';
-import {StyleSheet, Button} from 'react-native';
+import {StyleSheet, Button, View, Text, TouchableOpacity} from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
-import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import SignIn from './Screens/SignIn';
-import OtpScreen from './Screens/OtpScreen';
-import Screen3 from './Screens/Screen3';
-import Screen4 from './Screens/Screen4';
-import Screen5 from './Screens/Screen5';
-import Cheader from './Components/Cheader';
-import Ionicons from 'react-native-vector-icons/Ionicons';
-import Subdistrict_s1 from './Screens/Subdistrict_s1';
-import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import VendorNavigation from './Screens/VendorNavigation';
-
-const Stack = createNativeStackNavigator();
-const Tab = createBottomTabNavigator();
-// import React from 'react'
+import VendorRegistration from './Navigation/VendorRegistration';
+import Subdistrict from './Navigation/Subdistrict';
 
 export default function App() {
-  return (
-
-    // Navigation for Subdistrict
-    // <NavigationContainer>
-    //   <Tab.Navigator>
-    //     <Tab.Screen
-    //       options={{
-    //         headerShown: false,
-    //       }}
-    //       name="Home"
-    //       component={VendorNavigation}
-    //     />
-    //     <Tab.Screen
-    //       options={{
-    //         headerShown: false,
-    //       }}
-    //       name="Not Home 1"
-    //       component={Subdistrict_s1}
-    //     />
-    //     <Tab.Screen
-    //       options={{
-    //         headerShown: false,
-    //       }}
-    //       name="Not Home 2"
-    //       component={Subdistrict_s1}
-    //     />
-    //     <Tab.Screen
-    //       options={{
-    //         headerShown: false,
-    //       }}
-    //       name="Not Home 3"
-    //       component={Subdistrict_s1}
-    //     />
-    //   </Tab.Navigator>
-    // </NavigationContainer>
-    <NavigationContainer>
-      <Stack.Navigator animationEnabled={false} initialRouteName="SignIn">
-        <Stack.Screen
-          name="SignIn"
-          component={SignIn}
-          options={{
-            headerShown: false,
-          }}
-        />
-        <Stack.Screen
-          // eslint-disable-next-line prettier/prettier
-          name="OtpScreen"
-          component={OtpScreen}
-          options={{
-            headerShown: true,
-            // headerTitle: () => <Cheader active_step={0} />,
-            headerStyle: {
-              height: 100,
-            },
-          }}
-        />
-        <Stack.Screen
-          // eslint-disable-next-line prettier/prettier
-          name="Screenthree"
-          component={Screen3}
-          options={{
-            headerShown: true,
-            headerTitle: () => <Cheader active_step={1} />,
-            headerStyle: {
-              height: 100,
-            },
-          }}
-        />
-        <Stack.Screen
-          // eslint-disable-next-line prettier/prettier
-          name="Screen4"
-          component={Screen4}
-          options={{
-            headerShown: true,
-            headerTitle: () => <Cheader active_step={2} />,
-            headerStyle: {
-              height: 100,
-            },
-          }}
-        />
-        <Stack.Screen
-          // eslint-disable-next-line prettier/prettier
-          name="Screen5"
-          component={Screen5}
-          options={{
-            headerShown: true,
-            headerTitle: () => <Cheader active_step={3} />,
-            headerStyle: {
-              height: 100,
-            },
-          }}
-        />
-        <Stack.Screen
-          name="Subdistrict_s1"
-          component={Subdistrict_s1}
-          options={{
-            headerShown: false,
-          }}
-        />
-      </Stack.Navigator>
-    </NavigationContainer>
-  );
+  return <VendorRegistration />;
+  // return <Subdistrict />;
+  // return (
+  //   <View style={styles.Container}>
+  //     {/* <Text
+  //       style={styles.heading1}
+  //       >Review</Text> */}
+  //     <View style={styles.menu_container}>
+  //       <Text style={styles.heading1}>Review</Text>
+  //       <TouchableOpacity style={styles.box1}>
+  //         <Text style={styles.heading2}>Food</Text>
+  //       </TouchableOpacity>
+  //       <TouchableOpacity style={styles.box2}>
+  //         <Text style={styles.heading2}>Vendor</Text>
+  //       </TouchableOpacity>
+  //       <TouchableOpacity style={styles.box3}>
+  //         <Text style={styles.heading2}>Delivery Partners</Text>
+  //       </TouchableOpacity>
+  //     </View>
+  //   </View>
+  // );
 }
 
-
+const styles = StyleSheet.create({
+  Container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding: '6%',
+    backgroundColor: '#f5f5f5',
+    // backgroundColor:'red',
+  },
+  heading1: {
+    // alignSelf:'flex-start',
+    color: '#8399cf',
+    fontSize: 24,
+    // fontWeight:'700',
+    marginBottom: '5%',
+    alignSelf: 'flex-start',
+    fontFamily: 'didactgothic-regular',
+  },
+  heading2: {
+    color: '#f5f5f5',
+    fontSize: 27,
+    alignSelf: 'flex-start',
+    fontFamily: 'didactgothic-regular',
+  },
+  menu_container: {
+    flex: 1,
+    // justifyContent: 'space-around',
+    alignItems: 'center',
+    width: '100%',
+    // backgroundColor:'blue'
+  },
+  box1: {
+    // flex:1,
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    padding: '7%',
+    margin: '3%',
+    height: 150,
+    width: '100%',
+    borderRadius: 10,
+    backgroundColor: '#f58551',
+  },
+  box2: {
+    // flex:1,
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    padding: '6%',
+    margin: '3%',
+    height: 150,
+    width: '100%',
+    borderRadius: 10,
+    backgroundColor: '#f7b93d',
+  },
+  box3: {
+    // flex:1,
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    padding: '6%',
+    margin: '3%',
+    height: 150,
+    width: '100%',
+    borderRadius: 10,
+    backgroundColor: '#8ec63e',
+  },
+  icon1: {
+    alignSelf: 'flex-end',
+    height: 80,
+    width: 80,
+    // justifySelf:'flex-start',
+  },
+  icon2: {
+    alignSelf: 'flex-end',
+    height: 80,
+    width: 80,
+    // justifySelf:'flex-start',
+  },
+  icon3: {
+    alignSelf: 'flex-end',
+    height: 80,
+    width: 90,
+    // justifySelf:'flex-start',
+  },
+});
