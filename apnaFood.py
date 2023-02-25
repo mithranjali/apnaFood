@@ -20,7 +20,7 @@ def sub_district_reject(email):
         mydb = client.Mithranjali
         mycol = mydb["vendor_registrations"]
         query = {'email':email}
-        new_values = {'Status':"Rejected"}
+        new_values = {"$set":  {'Status':"Rejected"}}
         mycol.update_one(query, new_values)
         client.close()
         return 'rejected by sub district franchisee'
