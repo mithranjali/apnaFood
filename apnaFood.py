@@ -13,6 +13,17 @@ app = FastAPI(title="Apna Food", version="1.0")
 @app.get('/hello')
 def hello_world():
         return 'Hello World'
+
+@app.get('/sub_district_reject')
+def sub_district_reject(email):
+        client = pymongo.MongoClient("mongodb+srv://sripriya:"+urllib.parse.quote("Orayiram@2020")+"@cluster0.once1vv.mongodb.net/?retryWrites=true&w=majority", server_api=ServerApi('1'), connect = False) 
+        mydb = client.Mithranjali
+        mycol = mydb["vendor_registrations"]
+        query = {'email':email}
+        new_values = {'Status':"Rejected"}
+        mycol.update_one(query, new_values)
+        client.close()
+        return 'rejected by sub district franchisee'
 @app.get('/all_vendors')
 def send_all_vendors():
        client = pymongo.MongoClient("mongodb+srv://sripriya:"+urllib.parse.quote("Orayiram@2020")+"@cluster0.once1vv.mongodb.net/?retryWrites=true&w=majority", server_api=ServerApi('1'), connect = False)
@@ -22,6 +33,7 @@ def send_all_vendors():
        for i in mycol.find():
               x.append(i)
        print(x)
+       client.close()
        return {'all_vendors':str(x)}
 
 
@@ -54,6 +66,7 @@ async def insert_registration(request : Request):
         mydict = { "username": uname, "email": email, "mobile" : phnnum, "password" : password, "Organization Details": { "type_of_oraganisation" : type_of_org, "cin" : cin, 'pan' : pan, 'gst' :gst, 'udhyam':udhyam}, "Bank Details" : {'bank_account_number': bank_acc_num, 'bank_account_name' : bank_acc_name, 'bank_ifsc' : ifsc, 'upi_ID' : upi} , "Address Details" : {'country': country, 'state':state, 'district': district, 'sub_district' : sub_district, 'address':addr,"PIN_code":pin_code}, "Status" : "In Progress", "Stage" : "Sub District"  }
         x = mycol.insert_one(mydict)
         print(x)
+        client.close()
         
 
 
