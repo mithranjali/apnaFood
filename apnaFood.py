@@ -44,8 +44,11 @@ async def send_all_vendors():
        x = []
        for i in mycol.find():
               del i['_id']
-              x.append(i)
+              if(i['Stage'] == "Sub District" and i['Status'] == "In Progress"):
+                x.append(i)
        client.close()
+       if(len(x) == 0):
+              return 'no vendors'
        return {'all_vendors':x}
 
 
