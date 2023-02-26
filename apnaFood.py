@@ -38,7 +38,7 @@ async def sub_district_reject(email):
 
 @app.get('/all_vendors')
 async def send_all_vendors():
-       client = pymongo.MongoClient("mongodb+srv://sripriya:"+urllib.parse.quote("Orayiram@2020")+"@cluster0.once1vv.mongodb.net/?retryWrites=true&w=majority", server_api=ServerApi('1'), connect = False)
+       client = pymongo.MongoClient("mongodb+srv://sripriya:"+urllib.parse.quote("Orayiram@2020")+"@cluster0.once1vv.mongodb.net/?retryWrites=true&w=majority&connectTimeoutMS=60000", server_api=ServerApi('1'), connect = False)
        mydb = client.Mithranjali
        mycol = mydb["vendor_registrations"]
        x = []
