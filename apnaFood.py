@@ -14,6 +14,25 @@ app = FastAPI(title="Apna Food", version="1.0")
 def hello_world():
         return 'Hello World 123'
 
+@app.post('/api/login')
+async def register(request : Request ):
+    k = await request.json()
+    email = k['email']
+    password = k['password']
+    client = pymongo.MongoClient("mongodb+srv://sripriya:"+urllib.parse.quote("Orayiram@2020")+"@cluster0.once1vv.mongodb.net/?retryWrites=true&w=majority", server_api=ServerApi('1'), connect = False) 
+    mydb = client.Mithranjali
+    mycol = mydb["vendor_registrations"]
+    # x = mycol.find_one()
+    # print(x)
+    mydict = { "email": email }
+    x = mycol.find_one(mydict)
+    if x is None:
+        return {"status":300, "result":"Username not found"}
+    elif x["password"] == password:
+        return {"status":200, "result":"Username and password match"}
+    else:
+        return {"status":320, "result": "Username and password does not match"}
+
 @app.get('/sub_district_reject')
 async def sub_district_reject(email):
         client = pymongo.MongoClient("mongodb+srv://sripriya:"+urllib.parse.quote("Orayiram@2020")+"@cluster0.once1vv.mongodb.net/?retryWrites=true&w=majority", server_api=ServerApi('1'), connect = False) 
