@@ -7,7 +7,7 @@
  * @format
  */
 import React from 'react';
-import { useState } from 'react';
+import { Alert } from 'react';
 import {
   StyleSheet,
   SafeAreaView,
@@ -18,7 +18,7 @@ import {
 } from 'react-native';
 const Screen5 = ({route}) => {
   const {user_name, user_password, user_phone, user_email, typeoforg, cin, gst, pan, udayam, user_UPI_ID, user_account_name, user_bank_IFSC_code, user_bank_account_number} = route.params;
-  
+
   const [text, onChangeText] = React.useState('');
   const [country, set_country] = React.useState('');
   const [state, set_state] = React.useState('');
@@ -26,7 +26,7 @@ const Screen5 = ({route}) => {
   const [sub_district, set_sub_district] = React.useState('');
   const [address, set_address] = React.useState('');
   const [pin_code, set_pin_code] = React.useState('');
-  const upload_details = async() =>{
+  const upload_details = () =>{
 
       const settings = {
       method: 'POST',
@@ -35,44 +35,55 @@ const Screen5 = ({route}) => {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        "name" : user_name,
-        "email":user_email,
-        "password": user_password,
-        "phonenumber":user_phone,
-        "typeoforg":typeoforg,
-        "cin":cin,
-        "pan":pan,
-        "gst":gst,
-        "udhyam":udayam,
-        "accountnumber":user_bank_account_number,
-        "accountname":user_account_name,
-        "ifsc":user_UPI_ID,
-        "upi": user_UPI_ID,
-        "country":country,
-        "state":state,
-        "district": district,
-        "subdistrict": sub_district,
-        "address": address,
-        "pincode":pin_code,
+        'name' : user_name,
+        'email':user_email,
+        'password': user_password,
+        'phonenumber':user_phone,
+        'typeoforg':typeoforg,
+        'cin':cin,
+        'pan':pan,
+        'gst':gst,
+        'udhyam':udayam,
+        'accountnumber':user_bank_account_number,
+        'accountname':user_account_name,
+        'ifsc':user_UPI_ID,
+        'upi': user_UPI_ID,
+        'country':country,
+        'state':state,
+        'district': district,
+        'subdistrict': sub_district,
+        'address': address,
+        'pincode':pin_code,
 
       }),
     };
-    try{
-    console.log("pilichav\n");
+    try {
 
-      fetch('http://apnafood.org.in/insert_vendor',settings)
+      fetch('http://10.0.2.2:8000/insert_vendor',settings)
       .then(response=>response.json())
-      .then(data=>console.log(data))
-      .catch(err=>console.log("The UPPER"+ err))
-    // const fetchresponse = await fetch('http://apnafood.org.in/insert_vendor',settings);
-    // const data = await fetchresponse.json();
-    // console.log(data);
+      .then(data=>
+        {
+          console.log(data);
+          if (data === 'Success')
+          {
+            Alert.alert('Uploaded Details');
+            navigator.navigate('SignIn');
+          }
+
+        })
+      .catch(err=>
+        {
+        Alert.alert('Server Error');
+        console.log(err);
+        });
+
     }
-    catch(err)
+    catch (err)
     {
-      console.error("The Lower "+err);
+      console.error('The Lower ' + err);
+      Alert.alert('Server Error');
     }
-  }
+  };
   return (
     <SafeAreaView style={styles.Container}>
       <KeyboardAvoidingView>
@@ -140,7 +151,7 @@ const Screen5 = ({route}) => {
       </KeyboardAvoidingView>
     </SafeAreaView>
   );
-}
+};
 
 const styles = StyleSheet.create({
   Container: {
@@ -164,7 +175,7 @@ const styles = StyleSheet.create({
     fontSize:14,
     borderColor:'#8399cf',
   },
-  
+
 
   input_location: {
     height: 50,
@@ -187,7 +198,7 @@ const styles = StyleSheet.create({
     width: 300,
     alignSelf: 'center',
     fontFamily:'didactgothic-regular',
-    marginTop:18 
+    marginTop:18,
   },
 });
 

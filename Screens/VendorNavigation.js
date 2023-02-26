@@ -13,7 +13,6 @@ import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
-// import React from 'react'
 
 export default function VendorNavigation() {
   return (

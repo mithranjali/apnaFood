@@ -12,7 +12,6 @@ const Tab = createBottomTabNavigator();
 export default function Subdistrict() {
   return (
     // Navigation for Subdistrict
-    <NavigationContainer>
       <Tab.Navigator>
         <Tab.Screen
           options={{
@@ -43,6 +42,5 @@ export default function Subdistrict() {
           component={Subdistrict_s1}
         />
       </Tab.Navigator>
-    </NavigationContainer>
   );
 }

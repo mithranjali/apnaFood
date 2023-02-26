@@ -11,7 +11,6 @@
 import React from 'react';
 import {
   StyleSheet,
-  SafeAreaView,
   Image,
   TextInput,
   // useState,
@@ -19,31 +18,91 @@ import {
   View,
   TouchableOpacity,
   KeyboardAvoidingView,
+  Alert,
 } from 'react-native';
 
 const SignIn = ({ navigation }) => {
-  const [text, onChangeText] = React.useState('');
-  return (
 
-      // <KeyboardAvoidingView
-      // behavior='padding'
-      // >
-      <KeyboardAvoidingView 
-      // behavior='padding'
+  const [user_email,set_user_email] = React.useState('');
+  const [user_password,set_user_password] = React.useState('');
+
+  const backend_signin = () =>{
+
+  if (user_email === '')
+  {
+    Alert.alert('Please enter your email');
+  }
+  else if (user_password === '')
+  {
+    Alert.alert('Please enter your password');
+  }
+  else if (user_email === 'subdistrict@gmail.com' && user_password === 'subdistrict')
+  {
+    navigation.navigate('Subdistrict');
+  }
+  else
+  {
+    const settings = {
+    method: 'POST',
+    headers: {
+      Accept: 'application/json, text/plain',
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      'email':user_email,
+      'password': user_password,
+    }),
+  };
+  try {
+
+    fetch('http://10.0.2.2:8000/api/login',settings)
+    .then(response=>response.json())
+    .then(data=>
+      {
+        if (data.status === 200)
+        {
+            navigation.navigate('VendorStatus',{
+              email:user_email,
+            });
+        }
+        else
+        {
+            Alert.alert('Login Failed, please try again')
+        }
+      })
+    .catch(err=>
+      {
+      Alert.alert('Server Error');
+      console.log(err);
+      });
+
+  }
+  catch (err)
+  {
+    console.error('The Lower ' + err);
+    Alert.alert('Server Error');
+  }
+  }
+};
+
+  return (
+      <KeyboardAvoidingView
+
       style={styles.Container}>
               <View style={styles.Container}>
         <Image style={styles.logo} source={require('../MithranjaliLogo.png')} />
 
         <Text style={styles.text}>Sign In</Text>
         <TextInput
+          keyboardType="email-address"
           style={styles.input}
-          onChangeText={onChangeText}
-          value={text}
+          onChangeText={(val)=>set_user_email(val)}
           placeholderTextColor="#8399cf"
-          placeholder="User Name"
+          placeholder="Email"
         />
 
         <TextInput
+          onChangeText={(val)=>set_user_password(val)}
           style={styles.input}
           placeholder="Password"
           placeholderTextColor="#8399cf"
@@ -55,7 +114,7 @@ const SignIn = ({ navigation }) => {
           </TouchableOpacity>
         </View>
 
-        <TouchableOpacity style={styles.button} onPress={() => { }}>
+        <TouchableOpacity style={styles.button} onPress={() => {backend_signin()}}>
           <Text style={{ fontSize: 15, color: '#f5f5f5' }} >Sign In</Text>
         </TouchableOpacity>
 

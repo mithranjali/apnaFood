@@ -38,7 +38,7 @@ const OtpScreen = ({ navigation }) => {
   const Backend_Email_Otp = ()=>
   {
 
-    fetch('http://apnafood.org.in/email_otp?email='+user_email)
+    fetch('http://10.0.2.2:8000/email_otp?email='+user_email)
     .then(response=>response.json())
     .then(data => set_received_email_otp(data.otp))
     .catch((err) =>{
@@ -49,7 +49,7 @@ const OtpScreen = ({ navigation }) => {
   const Backend_Phone_Otp = ()=>
   {
 
-    fetch('http://apnafood.org.in/sms_otp?phnnum=91'+user_phone)
+    fetch('http://10.0.2.2:8000/sms_otp?phnnum=91'+user_phone)
     .then(response=>response.json())
     .then(data => set_received_phone_otp(data.otp))
     .catch((err) =>{

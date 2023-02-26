@@ -1,17 +1,48 @@
+/* eslint-disable react-native/no-inline-styles */
 /* eslint-disable prettier/prettier */
 /* eslint-disable space-infix-ops */
 import React, { useState } from 'react';
-import { Text, View, divider, TextInput,Image, TouchableOpacity, KeyboardAvoidingView, u, Alert, ScrollView } from 'react-native';
+import { Text, View, TouchableOpacity, Alert, ScrollView } from 'react-native';
 import { StyleSheet } from 'react-native';
 
 
 const Subdistrict_s3 = ({navigation, route}) => {
-  
-    // console.log(route.params["data"]);
-    const data = route.params["data"];
+
+    const data = route.params.data;
+
+    const backend_approve = () =>
+    {
+        console.log('Approved');
+        fetch('http://10.0.2.2:8000/sub_district_accept?email='+data.email)
+        .then(fdata=>fdata.json())
+        .then((fdata)=>
+            {
+                if (fdata==='accepted by sub district franchisee')
+                {
+                    Alert.alert('User : "'+data.username + '" is Approved');
+                }
+            }
+            )
+        .catch(err=>console.log(err));
+    };
+    const backend_reject = () =>
+    {
+        console.log('Rejected');
+        fetch('http://10.0.2.2:8000/sub_district_reject?email='+data.email)
+        .then(fdata=>fdata.json())
+        .then((fdata)=>
+            {
+                if (fdata==='rejected by sub district franchisee')
+                {
+                    Alert.alert('User : "'+data.username + '" is Rejected')
+                }
+            }
+            )
+        .catch(err=>console.log(err));
+    };
+
     return (
     <View style={styles.Container}>
-        
         <ScrollView
             showsVerticalScrollIndicator={false}
             style={{
@@ -42,34 +73,36 @@ const Subdistrict_s3 = ({navigation, route}) => {
             Bank Details
         </Text>
 
-        <Text style={styles.attribute}><Text style={styles.heading2} >Bank Acc No :</Text> <Text style={styles.detail} >{data["Bank Details"]["bank_account_number"]}</Text> </Text>
-        <Text style={styles.attribute}><Text style={styles.heading2} >Bank Acc Na :</Text> <Text style={styles.detail} >{data["Bank Details"]["bank_account_name"]}</Text> </Text>
-        <Text style={styles.attribute}><Text style={styles.heading2} >Bank IFSC No :</Text> <Text style={styles.detail} >{data["Bank Details"]["bank_ifsc"]}</Text> </Text>
-        <Text style={styles.attribute}><Text style={styles.heading2} >Bank UPI Id :</Text> <Text style={styles.detail} >{data["Bank Details"]["upi_ID"]}</Text> </Text>
+        <Text style={styles.attribute}><Text style={styles.heading2} >Bank Acc No :</Text> <Text style={styles.detail} >{data['Bank Details']['bank_account_number']}</Text> </Text>
+        <Text style={styles.attribute}><Text style={styles.heading2} >Bank Acc Na :</Text> <Text style={styles.detail} >{data['Bank Details']['bank_account_name']}</Text> </Text>
+        <Text style={styles.attribute}><Text style={styles.heading2} >Bank IFSC No :</Text> <Text style={styles.detail} >{data['Bank Details']['bank_ifsc']}</Text> </Text>
+        <Text style={styles.attribute}><Text style={styles.heading2} >Bank UPI Id :</Text> <Text style={styles.detail} >{data['Bank Details']['upi_ID']}</Text> </Text>
         <View style={styles.line} />
         <Text
         style={styles.heading1}
         >Location Details</Text>
-        <Text style={styles.attribute}><Text style={styles.heading2} >Country :</Text> <Text style={styles.detail} >{data["Address Details"]["country"]}</Text> </Text>
-        <Text style={styles.attribute}><Text style={styles.heading2} >State :</Text> <Text style={styles.detail} >{data["Address Details"]["state"]}</Text> </Text>
-        <Text style={styles.attribute}><Text style={styles.heading2} >District :</Text> <Text style={styles.detail} >{data["Address Details"]["district"]}</Text> </Text>
-        <Text style={styles.attribute}><Text style={styles.heading2} >Sub District :</Text> <Text style={styles.detail} >{data["Address Details"]["sub_district"]}</Text> </Text>
-        <Text style={styles.attribute}><Text style={styles.heading2} >Address :</Text> <Text style={styles.detail} >{data["Address Details"]["address"]}</Text> </Text>
-        <Text style={styles.attribute}><Text style={styles.heading2} >Pincode :</Text> <Text style={styles.detail} >{data["Address Details"]["PIN_code"]}</Text> </Text>
+        <Text style={styles.attribute}><Text style={styles.heading2} >Country :</Text> <Text style={styles.detail} >{data['Address Details']['country']}</Text> </Text>
+        <Text style={styles.attribute}><Text style={styles.heading2} >State :</Text> <Text style={styles.detail} >{data['Address Details']['state']}</Text> </Text>
+        <Text style={styles.attribute}><Text style={styles.heading2} >District :</Text> <Text style={styles.detail} >{data['Address Details']['district']}</Text> </Text>
+        <Text style={styles.attribute}><Text style={styles.heading2} >Sub District :</Text> <Text style={styles.detail} >{data['Address Details']['sub_district']}</Text> </Text>
+        <Text style={styles.attribute}><Text style={styles.heading2} >Address :</Text> <Text style={styles.detail} >{data['Address Details']['address']}</Text> </Text>
+        <Text style={styles.attribute}><Text style={styles.heading2} >Pincode :</Text> <Text style={styles.detail} >{data['Address Details']['PIN_code']}</Text> </Text>
         <View style={styles.line} />
         <Text
         style={styles.heading1}
         >Organization Details</Text>
-        <Text style={styles.attribute}><Text style={styles.heading2} >Organization :</Text> <Text style={styles.detail} >{data["Organization Details"]["type_of_oraganisation"]}</Text> </Text>
-        <Text style={styles.attribute}><Text style={styles.heading2} >PAN Number:</Text> <Text style={styles.detail} >{data["Organization Details"]["pan"]}</Text> </Text>
-        <Text style={styles.attribute}><Text style={styles.heading2} >CIN Number :</Text> <Text style={styles.detail} >{data["Organization Details"]["cin"]}</Text> </Text>
-        <Text style={styles.attribute}><Text style={styles.heading2} >GST Number :</Text> <Text style={styles.detail} >{data["Organization Details"]["gst"]}</Text> </Text>
-        <Text style={styles.attribute}><Text style={styles.heading2} >UDHYAM:</Text> <Text style={styles.detail} >{data["Organization Details"]["udhyam"]}</Text> </Text>
+        <Text style={styles.attribute}><Text style={styles.heading2} >Organization :</Text> <Text style={styles.detail} >{data['Organization Details']['type_of_oraganisation']}</Text> </Text>
+        <Text style={styles.attribute}><Text style={styles.heading2} >PAN Number:</Text> <Text style={styles.detail} >{data['Organization Details']['pan']}</Text> </Text>
+        <Text style={styles.attribute}><Text style={styles.heading2} >CIN Number :</Text> <Text style={styles.detail} >{data['Organization Details']['cin']}</Text> </Text>
+        <Text style={styles.attribute}><Text style={styles.heading2} >GST Number :</Text> <Text style={styles.detail} >{data['Organization Details']['gst']}</Text> </Text>
+        <Text style={styles.attribute}><Text style={styles.heading2} >UDHYAM:</Text> <Text style={styles.detail} >{data['Organization Details']['udhyam']}</Text> </Text>
         <View style={styles.line} />
         </View>
         </ScrollView>
         <View style={styles.buttons_container}>
-        <TouchableOpacity>
+        <TouchableOpacity
+        onPress={()=>{backend_approve();}}
+        >
             <View style={styles.button1}>
                 <Text
                 style={{
@@ -81,7 +114,9 @@ const Subdistrict_s3 = ({navigation, route}) => {
                 >Approve</Text>
             </View>
         </TouchableOpacity>
-        <TouchableOpacity>
+        <TouchableOpacity
+        onPress={()=>{backend_reject()}}
+        >
             <View style={styles.button2}>
             <Text
                 style={{
@@ -123,7 +158,7 @@ const styles = StyleSheet.create({
     },
     button1:{
         backgroundColor:'#8EC63E',
-        color:"#f5f5f5",
+        color:'#f5f5f5',
         // padding:'12%',
         width:'100%',
         alignItems:'center',

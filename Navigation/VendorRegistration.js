@@ -8,6 +8,7 @@ import OtpScreen from '../Screens/OtpScreen';
 import Screen3 from '../Screens/Screen3';
 import Screen4 from '../Screens/Screen4';
 import Screen5 from '../Screens/Screen5';
+import VendorStatus from '../Screens/VendorStatus';
 import Cheader from '../Components/Cheader';
 
 
@@ -15,11 +16,17 @@ const Stack = createNativeStackNavigator();
 
 export default function VendorRegistration() {
   return (
-    <NavigationContainer>
       <Stack.Navigator animationEnabled={false} initialRouteName="SignIn">
         <Stack.Screen
           name="SignIn"
           component={SignIn}
+          options={{
+            headerShown: false,
+          }}
+        />
+        <Stack.Screen
+          name="VendorStatus"
+          component={VendorStatus}
           options={{
             headerShown: false,
           }}
@@ -69,6 +76,5 @@ export default function VendorRegistration() {
           }}
         />
       </Stack.Navigator>
-    </NavigationContainer>
   );
 }
