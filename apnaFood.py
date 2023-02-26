@@ -24,6 +24,18 @@ async def sub_district_reject(email):
         mycol.update_one(query, new_values)
         client.close()
         return 'rejected by sub district franchisee'
+
+@app.get('/sub_district_accept')
+async def sub_district_reject(email):
+        client = pymongo.MongoClient("mongodb+srv://sripriya:"+urllib.parse.quote("Orayiram@2020")+"@cluster0.once1vv.mongodb.net/?retryWrites=true&w=majority", server_api=ServerApi('1'), connect = False) 
+        mydb = client.Mithranjali
+        mycol = mydb["vendor_registrations"]
+        query = {'email':email}
+        new_values = {"$set":  {'Stage':"District"}}
+        mycol.update_one(query, new_values)
+        client.close()
+        return 'accepted by sub district franchisee'
+
 @app.get('/all_vendors')
 async def send_all_vendors():
        client = pymongo.MongoClient("mongodb+srv://sripriya:"+urllib.parse.quote("Orayiram@2020")+"@cluster0.once1vv.mongodb.net/?retryWrites=true&w=majority", server_api=ServerApi('1'), connect = False)
@@ -31,10 +43,10 @@ async def send_all_vendors():
        mycol = mydb["vendor_registrations"]
        x = []
        for i in mycol.find():
+              del i['_id']
               x.append(i)
-       print(x)
        client.close()
-       return {'all_vendors':str(x)}
+       return {'all_vendors':x}
 
 
 @app.post('/insert_vendor')
