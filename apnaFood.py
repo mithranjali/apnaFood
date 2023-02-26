@@ -15,7 +15,7 @@ def hello_world():
         return 'Hello World 123'
 
 @app.post('/api/login')
-async def register(request : Request ):
+async def login(request : Request ):
     k = await request.json()
     email = k['email']
     password = k['password']
