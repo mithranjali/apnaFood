@@ -77,8 +77,8 @@ async def insert_registration(request : Request):
 
         mydict = { "username": uname, "email": email, "mobile" : phnnum, "password" : password, "Organization Details": { "type_of_oraganisation" : type_of_org, "cin" : cin, 'pan' : pan, 'gst' :gst, 'udhyam':udhyam}, "Bank Details" : {'bank_account_number': bank_acc_num, 'bank_account_name' : bank_acc_name, 'bank_ifsc' : ifsc, 'upi_ID' : upi} , "Address Details" : {'country': country, 'state':state, 'district': district, 'sub_district' : sub_district, 'address':addr,"PIN_code":pin_code}, "Status" : "In Progress", "Stage" : "Sub District"  }
         x = mycol.insert_one(mydict)
-        print(x)
         client.close()
+        return 'success'
         
 
 
