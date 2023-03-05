@@ -1,4 +1,4 @@
-# OSX
+5# OSX
 #
 .DS_Store
 
@@ -62,4 +62,5 @@ buck-out/
 # Ruby / CocoaPods
 /ios/Pods/
 /vendor/bundle/
+
 package-lock.json/
