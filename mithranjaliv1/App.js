@@ -11,10 +11,10 @@ import React from 'react';
 import {Text, View} from 'react-native';
 
 const App = () => {
-  return (
+  return ( 
     <>
       <View>
-        <Text>Demo Mithranjali App</Text>
+        <Text>Demo Mithranjali  App</Text>
       </View>
     </>
   );
